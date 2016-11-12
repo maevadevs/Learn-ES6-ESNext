@@ -243,14 +243,54 @@ funcs.forEach(function(func) {
 // creates a new binding on each iteration through the loop rather than attempting
 // to modify the value of an existing binding
 
+// Global Block Binding:
+// The global scope behavior of "let" and "const" are different from "var"
+//  var:  Creates a global variable, a property of the global object
+//        We could accidentaly overwrite an existing global variable
+var RegExp = "Hello!";          // window.RegExp is already a global variable
+console.log(window.RegExp);     // "Hello!"
+var ncz = "Hi!";                // window.ncz is already a global variable
+console.log(window.ncz);        // "Hi!"
+// It is safer to use "let" and "const" instead of "var"
+//  A new binding is created in the global scope but no property is added to the
+//  global object.
+//  We cannot overwrite a global variable using "let" or "const".
+let RegExp = "Hello!";
+// A binding that shadows the global RegExp:
+//  window.RegExp and RegExp are not the same, so there is no disruption to the
+//  global scope.
+//  There is no property RegExp created on the global object
+console.log(RegExp);                    // "Hello!"
+console.log(window.RegExp === RegExp);  // false
+// A binding that shadows the global ncz:
+//  window.ncz and ncz are not the same, so there is no disruption to the
+//  global scope.
+//  There is no property ncz created on the global object
+const ncz = "Hi!";
+console.log(ncz);                       // "Hi!"
+console.log("ncz" in window);           // false
 
+// Emerging Best Practices for Block-Bindings:
+//  - Use "let" by default instead of "var"
+//  - Use "const" for variables that should be protected from modifications
+//  - Much better: Use "const" by default and only use "let" when a variable’s
+//    value needs to change.
+// Rationale:
+//  Most variables should not change their value after initialization because
+//  unexpected value changes are a source of bugs.
 
-
-
-
-
-
-
-
-
-
+// Summary:
+//  - "let" and "const":
+//    # Lexical scoping (Block scoping) in JavaScript.
+//    # No hoisting.
+//    # Variables cannot be accessed before they are declared (No unintentional
+//      undefined).
+//    # Temporal Dead Zone (TDZ): Attempting to access a block binding before
+//      its declaration results in an error due to the binding presence in the
+//      Temporal Dead Zone (TDZ).
+//    # Behave similar to "var" except inside loops:
+//      for-in and for-of loops create a new binding with each iteration through
+//      the loop. Similar for for-loops with "let". "const" declarations in a
+//      for-loops may result in an error.
+//  - Use "const" by default. Only use "let" when the variable will change.
+//    Only use "var" when "let" is not an option.

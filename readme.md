@@ -14,6 +14,14 @@ Overview and learning of the changes in the ES6 standards that are different fro
     - Functions in Loops
     - <code>let</code> Declarations in Loops
     - <code>const</code> Declarations in Loops
-  - Global Block Biding
+  - Global Block Binding
   - Emerging Best Practices for Block Bindings
+  - Summary
+
+**1. Strings and Regular Expressions: <code>02_strings_and_regexp.js</code>**
+
+  - Better Unicode Support
+  - String Changes
+  - RegExp Changes
+  - Template Literals
   - Summary
