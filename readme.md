@@ -21,6 +21,8 @@ Overview and learning of the changes in the ES6 standards that are different fro
 **1. Strings and Regular Expressions: <code>02_strings_and_regexp.js</code>**
 
   - Better Unicode Support
+    - In ES5: UTF-16 and Surrogate Pair
+    - In ES6: UTF-16 with Better Support
   - String Changes
   - RegExp Changes
   - Template Literals
