@@ -23,7 +23,12 @@ Overview and learning of the changes in the ES6 standards that are different fro
   - Better Unicode Support
     - In ES5: UTF-16 and Surrogate Pair
     - In ES6: UTF-16 with Better Support
+    - <code>codePointAt()</code> Method
+    - <code>String.fromCodePoint()</code> Method
+    - <code>normalize()</code> Method
   - String Changes
+    - 
   - RegExp Changes
+    - RegExp <code>u</code> Flag
   - Template Literals
   - Summary
