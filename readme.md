@@ -33,3 +33,10 @@ Overview and learning of the changes in the ES6 standards that are different fro
   - RegExp `u` and `y` Flag
 - Template Literals
 - Summary ges
+
+## 3\. Functions: `functions.js`
+
+- Overview
+- Default Parameters Value
+- Default Parameter Value Temporal Dead Zone
+- Working with Unnamed Parameters
