@@ -1,0 +1,41 @@
+ECMAScript: 5 -> 5.1 -> Harmony -> Next -> 2015(6) -> 2016(7)
+
+ECMAScript 5 (Released December 2009)
+  This is the version of ECMAScript that most browsers support today.
+  It brings several enhancements to the standard library and updated
+  language semantics via a strict mode.
+
+ECMAScript 5.1 (June 2011)
+  ES5 was submitted as an ISO standard.
+  In the process, minor corrections were made.
+  ES5.1 contains those corrections.
+  It is the same text as ISO/IEC 16262:2011.
+
+ECMAScript 6 (June 2015)
+  This version went through several changes:
+
+  - ECMAScript Harmony:
+    It was the initial code name for JavaScript improvements after ECMAScript 5.
+
+  - ECMAScript Next:
+    It became apparent that the plans for Harmony were too ambitious for a
+    single version, so its features were split into two groups.
+    The first group of features had highest priority and was to become the next
+    version after ES5. The code name of that version was ECMAScript Next to
+    avoid prematurely committing to a version number (which proved problematic
+    with ES4.) The second group of features had time until after ECMAScript Next.
+
+  - ECMAScript 6:
+    As ECMAScript Next matured, its codename was dropped and everybody started
+    to call it ECMAScript 6.
+
+  - ECMAScript 2015:
+    In late 2014, TC39 decided to change the official name of ECMAScript 6 to
+    ECMAScript 2015, in light of upcoming yearly spec releases.
+    However, given how established the name “ECMAScript 6” already is and how
+    late TC39 changed their minds, it is expected that ES6 is how everybody will
+    continue to refer to that version.
+
+  - ECMAScript 2016:
+    It was previously called ECMAScript 7.
+    Starting with ES2016, the language standard will see smaller yearly releases.
