@@ -1,41 +1,90 @@
-ECMAScript: 5 -> 5.1 -> Harmony -> Next -> 2015(6) -> 2016(7)
+ECMAScript: 1 -> 2 -> 3 -> 3.1 -> 5 -> 5.1 -> Harmony -> Next -> 2015(6) -> 2016(7) -> 2017 -> 2018
 
-ECMAScript 5 (Released December 2009)
-  This is the version of ECMAScript that most browsers support today.
-  It brings several enhancements to the standard library and updated
-  language semantics via a strict mode.
+NOTE: ECMAScript is nothing more but Standardized JavaScript.
+
+JavaScript is born (May 1995)
+  Brendan Eich (then employee at Netscape) creates JavaScript prototype within 10 days
+  The language was to be included in Netscape Navigator
+  But Java was already included in Navigator: Why do we need another scripting language?
+  The purpose was a "Glue Language" for the Navigator browser, an "easier-language" to be used by designers
+  Netscape management had decided that the scripting language had to have a syntax similar to Java
+  The original codename was Mocha (coined by Marc Andreesen)
+  Netscape management changed it to LiveScript, for trademark and marketing reasons
+  Later, Java was gaining momentum, and it was again renamed as JavaScript, for marketing reasons
+
+ECMAScript 1 (1997)
+  In 1996, Netscape submitted the language for standardization to ECMA International
+  Because of trademark issues with the term 'Java', it was renamed ECMAScript
+  JavaScript became the most popular implementation of ECMAScript Standard
+  Other implementations include: JScript (Microsoft), ActionScript (Macromedia/Adobe)
+
+ECMAScript 2 (1998)
+  Brought some modifications to conform to the ISO/IEC international standard
+
+ECMAScript 3 (1999)
+  This was the first major widely-adopted release of the Standrized JavaScript
+  ECMAScript 3 became the baseline for modern day JavaScript
+
+ECMAScript 4 (Started 2000, Abandoned)
+  TC-39 released a large, massive draft for ECMAScript 4, based after ActionScript 3
+  It was massive in scope, way too massive:
+  Updated features included: new syntax, modules, classes, classical inheritance, 
+  private object members, optional type annotations, and more...
+  The consensus was that these features would be too much to handle in one go
+  Mozilla, Adobe, Macromedia continued work on ECMAScript 4
+  Yahoo, Google, and Microsoft agreed on ECMAScript 3.1 instead, a slow incremental-integration
+  ECMAScript 3.1 introduced very few syntax changes
+  
+  While all of this was happening, the open source and developer communities set to work
+  2005: AJAX was introduced, and JavaScript was the backbone
+  This resulted in a renaissance period of JavaScript usage spearheaded by open source libraries
+  All attempt to reconcile ECMAScript 3.1 and ECMAScript 4 failed
+  2008: Brendan Eich (creator of JS) announced that TC-39 would focus its efforts on 
+  standardizing ECMAScript 3.1 and a Harmony should be created between the two camps
+
+ECMAScript 5 (December 2009)
+  Standardized and publicized from the efforts put into ECMAScript 3.1
+  ECMAScript 4 was skipped altogether to avoid confusion
+  ECMAScript 5 is the version of ECMAScript that all browsers fully support today
+  It brings several enhancements to the standard library and updated language semantics via a `strict mode`
 
 ECMAScript 5.1 (June 2011)
-  ES5 was submitted as an ISO standard.
-  In the process, minor corrections were made.
-  ES5.1 contains those corrections.
-  It is the same text as ISO/IEC 16262:2011.
+  ES5 was submitted as an ISO standard
+  In the process, minor corrections were made, and ES5.1 contains those corrections
+  ECMAScript 5.1 is the same text as ISO/IEC 16262:2011
 
 ECMAScript 6 (June 2015)
   This version went through several changes:
 
   - ECMAScript Harmony:
-    It was the initial code name for JavaScript improvements after ECMAScript 5.
+    It was the initial codename for JavaScript improvements efforts after ECMAScript 5
+    It was to harmonized the rift that happened between the ES3.1 and ES4 camps
 
   - ECMAScript Next:
-    It became apparent that the plans for Harmony were too ambitious for a
-    single version, so its features were split into two groups.
-    The first group of features had highest priority and was to become the next
-    version after ES5. The code name of that version was ECMAScript Next to
-    avoid prematurely committing to a version number (which proved problematic
-    with ES4.) The second group of features had time until after ECMAScript Next.
+    It became apparent that the plans for Harmony were too ambitious for a single version,
+    so its features were split into two groups.
+    The first group of features had highest priority and was to become the Next version after ES5.
+    The code name of that version was `ECMAScript Next` to avoid prematurely committing to a 
+    version number (which proved to be problematic as with ES4.)
+    The second group of features had time until after ECMAScript Next.
 
   - ECMAScript 6:
-    As ECMAScript Next matured, its codename was dropped and everybody started
-    to call it ECMAScript 6.
+    As ECMAScript Next matured, its codename was dropped and the community started to call it ECMAScript 6.
 
   - ECMAScript 2015:
-    In late 2014, TC39 decided to change the official name of ECMAScript 6 to
-    ECMAScript 2015, in light of upcoming yearly spec releases.
-    However, given how established the name “ECMAScript 6” already is and how
-    late TC39 changed their minds, it is expected that ES6 is how everybody will
-    continue to refer to that version.
+    In late 2014, TC-39 decided to change the official name of ECMAScript 6 to ECMAScript 2015,
+    because it was decided that ECMAScript will get yearly spec releases
+    However, given how established the name `ES6` already was and how late TC-39 changed their minds, 
+    it was expected that ES6 is now how everybody will continue to refer to that version
 
-  - ECMAScript 2016:
-    It was previously called ECMAScript 7.
+ECMAScript 2016
+    It was previously called ECMAScript 7
     Starting with ES2016, the language standard will see smaller yearly releases.
+    The concept adopted for each release is "One JavaScript", which means any 
+    successive releases should never break previous releases
+
+ECMAScript 2017
+    Yearly release...
+
+ECMAScript 2018
+    Yearly release...
