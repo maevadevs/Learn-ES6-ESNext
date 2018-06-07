@@ -1,10 +1,10 @@
-// Better Unicode Support
+// BETTER UNICODE SUPPORT
 // **********************
-
-// In EcmaScript 5:
+//
+// In ES5:
 //    - UTF-16:
-//        All string properties and methods, like the length property and
-//        the charAt() method, were based on these 16-bit code units.
+//        All string properties and methods, like the `length` property and
+//        the `charAt()` method, were based on these 16-bit code units.
 //
 //    - Limitation of UTF-16:
 //        Not enough to cover every single character codes in the world.
