@@ -67,5 +67,5 @@ Overview and learning of the changes in the ES6 standards that are different fro
 
 - Overview
 - Default Parameters Value
-- Default Parameter Value Temporal Dead Zone
-- Working with Unnamed Parameters
+- Working with Unnamed Parameters: `rest` Parameter
+- Spread Operator
