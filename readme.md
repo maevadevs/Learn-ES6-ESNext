@@ -11,16 +11,16 @@ Overview and learning of the changes in the ES6 standards that are different fro
 ## 1. Block Bindings: `block-bindings.js`
 
 - `var`: Scope and Hoisting
-- `let`: Block-level Declaration
+- `let`: ES6 Variables, Block-level Declaration
 - `const`: ES6 Constants, Block-level Declaration
-- Redeclaration of Same Identifier Not Allowed
-- Temporal Dead Zone (TDZ)
+- No Redeclaration of Same Identifier In Same Scope
+- Hoisting and Temporal Dead Zone (TDZ)
 - Block-Binding in Loops
   - Functions in Loops
   - `let` Declarations in Loops
   - `const` Declarations in Loops
 - Global Block Binding
-- Emerging Best Practices for Block Bindings
+- Best Practices for Block Bindings
 - Summary
 
 ## 2. Strings and Regular Expressions: `strings-and-regexp.js`
