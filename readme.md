@@ -44,14 +44,24 @@ Overview and learning of the changes in the ES6 standards that are different fro
 - Better Unicode Support
   - In ES5: UTF-16 and Surrogate Pair
   - In ES6: UTF-16 with Better Support
-  - `codePointAt()` Method
-  - `String.fromCodePoint()` Method
-  - `normalize()` Method
-- String Changes
+  - `str.codePointAt()`
+  - `str.fromCodePoint()`
+  - `str.normalize()`
+- Substring Changes
+  - `str.includes(txt[, start = 0])`
+  - `str.startsWith(txt[, start = 0])`
+  - `str.endsWith(txt[, start = 0])`
+- Other String Methods
+  - `str.repeat(times)`
 - RegExp Changes
   - RegExp `u` and `y` Flag
+  - Duplicating RegExp
+  - Returning Existing Flags
 - Template Literals
-- Summary ges
+  - Multiline strings
+  - Expression substitution
+  - Tagged Template
+- Summary
 
 ## 3. Functions: `functions.js`
 
