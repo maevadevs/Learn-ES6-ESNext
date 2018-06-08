@@ -333,3 +333,104 @@ function Person3 (name) {
 
 // BLOCK-LEVEL FUNCTIONS
 // *********************
+//  In ES3, a function declaration occurring inside of a block was a syntax error
+//  It is considered a best practice to avoid function declarations inside of blocks
+//  ES5 strict mode introduced an error when a function declaration was used inside of a block
+
+if (true) {
+  // In ES5 Strict-Mode, this throws a syntax error
+  // In ES6, this is considered a block-level declaration
+  function doSomething () { return true }
+}
+
+// In ES6, this is considered a block-level declaration
+// The function can only be accessed and called within the declaration block
+
+// "use strict"
+if (true) {
+  console.log(typeof doSomething) // ES5 Function Statement Hoisted: "function"
+  function doSomething () { return true }
+  // Call within the same block
+  doSomething() // => true
+}
+console.log(typeof doSomething) // => "undefined"
+
+// WHEN TO USE BLOCK-LEVEL FUNCTIONS
+// *********************************
+//  Block-Level functions statement are similar to `let` function expressions
+//  Function definition is removed once execution flows out of the block in 
+//  which it’s defined
+//  The key difference is that block level functions are hoisted to the top 
+//  of the containing block while `let` function expressions enters the TDZ
+//  until they are declared
+
+// "use strict"
+if (true) {
+  console.log(typeof doSomething) // throws error: doSomething is currently in the TDZ
+  let doSomething = function () { return true }
+  doSomething()
+}
+console.log(typeof doSomething)
+
+// BLOCK-LEVEL FUNCTIONS IN NON-STRICT MODE
+// ****************************************
+//  The behavior is slightly different
+//  Instead of hoisting these declarations to the top of the block, they are hoisted all 
+//  the way to the containing function or global environment
+// This behavior is to remove the incompatible browser behaviors that previously existed
+
+// ES6 behavior
+if (true) {
+  console.log(typeof doSomething) // "function" because hoisted to global
+  function doSomething() { return true }
+  doSomething()
+}
+console.log(typeof doSomething) // "function" because it exist in this context from hoisting
+
+// ARROW FUNCTION EXPRESSIONS
+// **************************
+//  Anonymous functions
+//  Arrow functions behave differently than traditional JavaScript functions 
+//  - No `this`, `super`, `arguments`, and `new.target` bindings: Their value is by the closest containing non-arrow function
+//  - Cannot be called with `new`: Arrow functions do not have a [[Construct]] method. Throw an error when used with `new`
+//  - No prototype: The `prototype` property of an arrow function doesn’t exist
+//  - Can’t change `this`: The value of `this` inside of the function can’t be changed
+//  - No `arguments` object: Rely only on named and rest parameters to access function arguments
+//  - No duplicate named parameters: Cannot have duplicate named parameters in strict or nonstrict mode
+//
+// `this` binding is a common source of error in JavaScript: arrow functions eliminate this confusion
+// With a single `this` value, JavaScript engines can more easily optimize these operations
+// Reducing errors and ambiguities inside of arrow functions
+// NOTE: Arrow functions also have a `name` property that follows the same rule as other functions
+
+const reflect1 = value => value
+const reflect2 = (value) => value
+const reflect3 = (value) => { return value }
+const reflect4 = function (value) { return value }
+
+const sum1 = (num1, num2) => num1 + num2
+const sum2 = (num1, num2) => { return num1 + num2 }
+const sum3 = function (num1, num2) { return num1 + num2 }
+
+const getName1 = () => 'Nicholas'
+const getName2 = () => { return 'Nicholas' }
+const getName3 = function () { return 'Nicholas' }
+
+const doNothing1 = () => {}
+const doNothing2 = function () {}
+
+const returnEmptyObject1 = () => ({})
+const returnEmptyObject2 = function () { return {} }
+
+const returnRegObject1 = id => ({ id: id, name: 'Temp' })
+const returnRegObject2 = (id) => ({ id: id, name: 'Temp' })
+const returnRegObject3 = function (id) {
+  return {
+    id: id,
+    name: 'Temp'
+  }
+}
+
+// IIFE WITH ARROW FUNCTION
+// ************************
+//  

@@ -72,3 +72,4 @@ Overview and learning of the changes in the ES6 standards that are different fro
 - The `name` Property
 - Dual Purpose of Functions: Factory vs Constructor, `new.target`
 - Block-Level Functions
+- Arrow Functions Expressions
