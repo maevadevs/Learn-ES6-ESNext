@@ -69,3 +69,6 @@ Overview and learning of the changes in the ES6 standards that are different fro
 - Default Parameters Value
 - Working with Unnamed Parameters: `rest` Parameter
 - Spread Operator
+- The `name` Property
+- Dual Purpose of Functions: Factory vs Constructor, `new.target`
+- Block-Level Functions

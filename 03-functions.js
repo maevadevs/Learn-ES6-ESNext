@@ -248,3 +248,88 @@ const person = {
 
 person.sayName.name // => sayName
 Object.getOwnPropertyDescriptor(person, 'name').get.name // => get name
+
+// Functions created using bind() will have their names prefixed with "bound"
+// Functions created using the Function() constructor have a name of "anonymous"
+
+const doSomething = () => true
+
+console.log(doSomething.bind().name) // "bound doSomething"
+console.log((new Function()).name) // "anonymous"
+
+// NOTE:
+//  The value of name for any function does not necessarily refer to a 
+//  variable of the same name
+//  The name property is meant to be informative, to help with debugging
+
+// CLARIFYING THE DUAL PURPOSE OF FUNCTIONS
+// ****************************************
+//  Factory Function vs Constructor Function
+//  Functions can be callable with or without `new`
+//  Can be a function call or a Constructor call
+//  NOTE: If the function makes use of `this`, calling the function without `new`
+//  will create properties on the global object (as the `this` reference)
+//  Capitalization of Person is the only real indicator that the function 
+//  is meant to be called using `new`
+//  This confusion over the dual roles of functions led to some changes in ES6
+//  JavaScript has two different internal-only methods for functions: [[Call]] and [[Construct]]
+//    - When a function is called without `new`, the [[Call]] method is executed
+//    - When a function is called with `new`, that’s when the [[Construct]] method is called
+//  Not all functions have [[Construct]], and therefore not all functions can be called with `new`
+//  Arrow functions do not have a [[Construct]] method
+
+// HOW A FUNCTION WAS CALLED IN ES5
+// ********************************
+//  The most popular way to determine if a function was called with `new` in ES5 is to use `instanceof`
+//  Unfortunately, this approach is not completely reliable because `this` can still be an instance of 
+//  `Person` without using `new`
+
+function Person (name) {
+  if (this instanceof Person) {
+    this.name = name // using new
+  } else {
+    throw new Error('You must use `new` with `Person`')
+  }
+}
+let person = new Person('Nicholas')
+let notAPerson = Person('Nicholas') // throws error
+let notAPerson = Person.call(person, 'Michael') // works!
+
+// `new.target` META-PROPERTY
+// **************************
+//  ES6 introduces the `new.target` metaproperty
+//  It is a property of a non-object that provides additional information 
+//  related to its target (such as `new`)
+//  - When a function’s [[Construct]] method is called, `new.target` is filled 
+//    with the target of the `new` operator: typically the constructor of the newly 
+//    created object instance that will become `this` inside the function body
+//  - If [[Call]] is executed, then `new.target` is `undefined`
+//  Now, we can safely detect if a function is called as a Factory or as a Constructor
+
+function Person2 (name) {
+  if (typeof new.target !== 'undefined') {
+    // using new: Constructor
+    this.name = name 
+  } else {
+    // using as Factory
+    throw new Error('You must use `new` with `Person`.')
+  }
+}
+person = new Person2('Nicholas')
+notAPerson = Person2.call(person, 'Michael') // error!
+notAPerson = Person2('Nicholas') // throws error
+
+function Person3 (name) {
+  if (new.target === Person3) {
+    // using new: Constructor
+    this.name = name
+  } else {
+    // using as Factory
+    throw new Error('You must use `new` with `Person`.')  
+  }
+}
+
+// NOTE: Using `new.target` outside of a function is a syntax error
+
+// BLOCK-LEVEL FUNCTIONS
+// *********************
