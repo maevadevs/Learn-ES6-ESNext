@@ -377,7 +377,7 @@ console.log(typeof doSomething)
 //  The behavior is slightly different
 //  Instead of hoisting these declarations to the top of the block, they are hoisted all 
 //  the way to the containing function or global environment
-// This behavior is to remove the incompatible browser behaviors that previously existed
+//  This behavior is to remove the incompatible browser behaviors that previously existed
 
 // ES6 behavior
 if (true) {
@@ -398,10 +398,10 @@ console.log(typeof doSomething) // "function" because it exist in this context f
 //  - No `arguments` object: Rely only on named and rest parameters to access function arguments
 //  - No duplicate named parameters: Cannot have duplicate named parameters in strict or nonstrict mode
 //
-// `this` binding is a common source of error in JavaScript: arrow functions eliminate this confusion
-// With a single `this` value, JavaScript engines can more easily optimize these operations
-// Reducing errors and ambiguities inside of arrow functions
-// NOTE: Arrow functions also have a `name` property that follows the same rule as other functions
+//  `this` binding is a common source of error in JavaScript: arrow functions eliminate this confusion
+//  With a single `this` value, JavaScript engines can more easily optimize these operations
+//  Reducing errors and ambiguities inside of arrow functions
+//  NOTE: Arrow functions also have a `name` property that follows the same rule as other functions
 
 const reflect1 = value => value
 const reflect2 = (value) => value
@@ -433,4 +433,151 @@ const returnRegObject3 = function (id) {
 
 // IIFE WITH ARROW FUNCTION
 // ************************
-//  
+
+// Example of IIFE in ES5
+let person = function (name) {
+  return {
+    getName: function () {
+      return name
+    }
+  }
+}('Nicholas')
+
+console.log(person.getName()) // => "Nicholas"
+
+// Example of IIFE in ES6
+// Since Arrow Function is an expression, parenthesis is required
+let person = (name => ({ getName: () => name }))('Nicholas')
+
+console.log(person.getName()) // => "Nicholas"
+
+// NO `this` BINDING
+// *****************
+//  One of the most common areas of error in JavaScript is the binding 
+//  of `this` inside of functions
+//  The value of `this` can change inside a single function depending 
+//  on the context in which the function is called
+//  It is possible to mistakenly affect one object when you meant to affect another
+
+let PageHandler1 = {
+  id: '123456',
+  init: function () {
+    document.addEventListener('click', function (event) {
+      this.doSomething(event.type) // Mistake: => error
+    }, false)
+  },
+  doSomething: function (type) {
+    console.log('Handling ' + type  + ' for ' + this.id)
+  }
+}
+
+// The call to `this.doSomething()` is broken because this is a reference to 
+// the object that was the target of the event (in this case `document`), 
+// instead of being bound to `PageHandler`
+// We could fix this by binding the value of this to `PageHandler` explicitly using the `bind()`
+
+let PageHandler2 = {
+  id: '123456',
+  init: function () {
+    document.addEventListener('click', (function (event) {
+      this.doSomething(event.type) // No error: Appropriate explicit binding
+    }).bind(this), false)
+  },
+  doSomething: function (type) {
+    console.log(`Handling ${type} for ${this.id}`) // No error
+  }
+}
+
+// But it is a little bit strange
+// By calling `bind(this)`, you’re actually creating a new function whose `this`
+// is bound to the current `this`, which is `PageHandler`. 
+// To avoid creating an extra function, a better way to fix this code is to use 
+// an arrow function
+// Arrow functions have no `this` binding, so `this` is always passed-thru from the scope-chain
+//  - If the arrow function is contained within a non-arrow function, `this` will be the same 
+//    as the containing function
+//  - Otherwise, `this` is equivalent to the value of `this` in the global scope
+
+let PageHandler3 = {
+  id: '123456',
+  init: function () {
+    // this === PageHandler
+    document.addEventListener('click', ((event) => {
+      // this === PageHandler
+      this.doSomething(event.type) // No error: Binding passed thru from scope
+    }), false)
+  },
+  doSomething: function (type) {
+    // this === PageHandler
+    console.log(`Handling ${type} for ${this.id}`) // No error
+  }
+}
+
+// Since the `this` value is determined by the containing function in which 
+// the arrow function is defined, you cannot change the value of `this` using 
+// `call()`, `apply()`, or `bind()`
+
+// CANNOR BE USED AS CONSTRUCTOR
+// *****************************
+//  Arrow functions are designed to be “throwaway” functions, and so cannot 
+//  be used to define new types: missing `prototype` property
+//  An arrow function has no [[Construct]] behavior
+//  If you try to use the `new` operator with an arrow function, you’ll get an error
+
+const MyType = () => {}
+const object = new MyType() // => Error - you can't use arrow functions with `new`
+
+// ARROW FUNCTIONS AND ARRAY
+// *************************
+//  Arrow functions are ideal for processing arrays
+//  Example of Array Processing with ES5 Function
+
+var result = values.sort(function (a, b) {
+  return a - b
+})
+
+// Example of Array Processing with ES6 Arrow Function
+
+let result = values.sort((a, b) => a - b)
+
+// This is applicable to all other Array methods
+
+// NO `arguments` BINDING
+// **********************
+//  Even though arrow functions don’t have their own `arguments` object, 
+//  it’s possible for them to access the `arguments` object from a containing function
+
+function createArrowFunctionReturningFirstArg() {
+  return () => arguments[0] // Return a function
+}
+let arrowFunction = createArrowFunctionReturningFirstArg(5)
+console.log(arrowFunction()) // => 5
+
+// Even though the arrow function is no longer in the scope of the function that created it, 
+// `arguments` remains accessible due to scope chain resolution of the `arguments` identifier
+
+// IDENTIFYING ARROW FUNCTIONS
+// ***************************
+//  Arrow functions are identified as functions
+
+const comparator = (a, b) => a - b
+console.log(typeof comparator) // "function"
+console.log(comparator instanceof Function) // true
+
+// We can still use `call()`, `apply()`, and `bind()` on arrow functions, 
+// although the `this` binding of the function will not be affected
+
+const sum = (num1, num2) => num1 + num2
+
+console.log(sum.call(null, 1, 2)) // 3: Unchanged
+console.log(sum.apply(null, [1, 2])) // 3: Unchanged
+// Using bind() method to create boundSum()
+// Attempting to bind `this` to `null`
+let boundSum = sum.bind(null, 1, 2)
+console.log(boundSum()) // 3: Unchanged
+
+// Arrow functions are appropriate to use anywhere you’re currently using an 
+// anonymous function expression, such as with callbacks
+
+// TAIL CALL OPTIMIZATION
+// **********************
