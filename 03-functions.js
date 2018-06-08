@@ -197,12 +197,54 @@ const pickFirst = new Function('...args', 'return args[0]')
 //  be combined into an array
 //  The spread operator allows you to specify an array that should be split and have its 
 //  items passed in as separate arguments to a function
-//  The JavaScript engine splits the array into individual arguments and passes them to the
-//  function
+//  The JavaScript engine splits the array into individual arguments and passes them to 
+//  the function
 //  We can mix and match the spread operator with other arguments as well
-//  You’ll likely find it to be a suitable replacement for the `apply()` method in most circumstances
+//  You’ll likely find it to be a suitable replacement for the `apply()` method in most 
+//  circumstances
 
 let values = [25, 50, 75, 100, 1, 45, 67, 78, 43, 23, 0, 31]
 let extraValues = [1, 2, 3, 4, 500, 600, 700, 800]
 console.log(Math.max(...values)) // => 100
 console.log(Math.max(...extraValues, ...values, 0)) // => 800
+
+// `name` PROPERTY
+// ***************
+//  Identifying functions can be challenging in JavaScript given the various ways a function
+//  can be defined
+//  Anonymous function expressions makes debugging a bit more difficult
+//  ECMAScript 6 adds the `name` property to all functions
+//  All functions in an ECMAScript 6 program will have an appropriate value for their name property
+
+function namedFunc1 () {
+  return true
+}
+const namedFunc2 = () => true
+
+namedFunc1.name // => "namedFunc1"
+namedFunc2.name // => "namedFunc2"
+
+// Special Cases of the `name` Property
+//  If the function expression itself has a name, that name takes priority over the variable 
+//  to which the function was assigned
+
+const aFunc = function anotherFunc () { return true }
+aFunc.name // => anotherFunc
+
+// GetterSetter function: Includes the `get` or `set` parts as part of the name
+// Regular methods are just the name of the method
+// Both getter and setter functions must be retrieved using Object.getOwnPropertyDescriptor()
+
+const person = {
+  firstName: 'John',
+  lastName: 'Smith',
+  get name () {
+    return `${this.firstName} ${this.lastName}`
+  },
+  sayName () {
+    return `${this.firstName} ${this.lastName}`
+  }
+}
+
+person.sayName.name // => sayName
+Object.getOwnPropertyDescriptor(person, 'name').get.name // => get name
