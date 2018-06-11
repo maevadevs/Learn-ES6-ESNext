@@ -581,3 +581,91 @@ console.log(boundSum()) // 3: Unchanged
 
 // TAIL CALL OPTIMIZATION
 // **********************
+//  A tail call is when a function is called as the last statement in another function
+//  Tail calls as implemented in ES5 engines are handled just like any other function call
+//  A new stack frame is created and pushed onto the call stack to represent the function call
+//  Every previous stack frame is kept in memory, which is problematic when the call stack gets too large
+
+function doSomething () {
+  // ... A bunch of codes here...
+  return doSomethingElse() // tail call
+}
+
+// ES6 reduces the size of the call stack for certain tail calls in strict mode 
+// Instead of creating a new stack frame for a tail call, the current stack frame 
+// is cleared and reused so long as the following conditions are met:
+//  1. The tail call does not require access to variables in the current stack frame: The function is not a closure
+//  2. The function making the tail call has no further work to do after the tail call returns
+//  3. The result of the tail call is returned as the function value
+
+// Not returning the result, results in an unoptimized function
+
+function doSomething () {
+  // not optimized - no return
+  doSomethingElse()
+}
+
+// A common way to inadvertently turn off optimization is to store the result of a 
+// function call in a variable and then return the result
+
+function doSomething () {
+    // not optimized - call isn't in tail position
+    let result = doSomethingElse()
+    return result
+}
+
+// If you have a function that performs an operation after returning from the tail call
+// then the function can’t be optimized
+
+function doSomething () {
+  // not optimized - must add after returning
+  return 1 + doSomethingElse()
+}
+
+// The hardest situation to avoid is in using closures
+// Because a closure has access to variables in the containing scope, 
+// tail call optimization may be turned off
+
+function doSomething() {
+  let num = 1
+  let func = () => num
+  // not optimized - function is a closure
+  return func()
+}
+
+// In practice, tail call optimization happens behind-the-scenes, so you don’t 
+// need to think about it unless you’re trying to optimize a function
+
+// HARNESSING TAIL CALL OPTIMIZATION
+// *********************************
+//  The primary use case for tail call optimization is in recursive functions
+//  That is where the optimization has the greatest effect
+
+function factorial (n) {
+  if (n <= 1) {
+    return 1
+  } else {
+    // not optimized - Rule #2. must multiply after returning
+    // If n is a very large number, the call stack size will 
+    // grow and could potentially cause a stack overflow
+    return n * factorial(n - 1)
+  }
+}
+
+// To optimize the function, ensure that the multiplication doesn’t 
+// happen after the last function call
+// move the multiplication operation outside of the return statement
+
+function factorialOptimized (n, p = 1) {
+  if (n <= 1) {
+    return 1 * p
+  } else {
+    let result = n * p // Multiplication moved outside. Default value given to p
+    // optimized
+    return factorial(n - 1, result)
+  }
+}
+
+// Tail call optimization is something you should think about whenever you’re writing 
+// a recursive function: it can provide a significant performance improvement, especially 
+// when applied in a computationally-expensive function
