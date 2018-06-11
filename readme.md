@@ -74,3 +74,4 @@ Overview and learning of the changes in the ES6 standards that are different fro
 - Block-Level Functions
 - Arrow Functions Expressions
 - Tail-Call Optimization
+- Summary

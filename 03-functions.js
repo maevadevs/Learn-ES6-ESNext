@@ -669,3 +669,14 @@ function factorialOptimized (n, p = 1) {
 // Tail call optimization is something you should think about whenever you’re writing 
 // a recursive function: it can provide a significant performance improvement, especially 
 // when applied in a computationally-expensive function
+
+// SUMMARY
+// *******
+//  - Default Function Parameters
+//  - Rest Parameters
+//  - Spread Operator
+//  - `name` Property
+//  - Block-Level Functions
+//  - `[[Call]]` and `[[Construct]]` and `new.target`
+//  - Arrow Functions
+//  - Tail call optimization
