@@ -75,3 +75,9 @@ Overview and learning of the changes in the ES6 standards that are different fro
 - Arrow Functions Expressions
 - Tail-Call Optimization
 - Summary
+
+## 4. Objects: `objects.js`
+
+- Overview
+- Property Initializer Syntax
+- Method Syntax

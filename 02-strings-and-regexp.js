@@ -96,6 +96,7 @@ console.log(String.fromCodePoint(134071)) // '𠮷'
 //  Just keep in mind that when comparing strings, both strings must be
 //  normalized to the same form
 
+let values = []
 let normalized = values.map(function (value) {
   return value.normalize() // 'NFC'
 })
@@ -122,11 +123,11 @@ values.sort(function (first, second) {
 //  When `u` flag set: Switches modes to work on characters, not code units
 //  The regular expression should no longer get confused about surrogate pairs in strings and should behave as expected
 
-var text = '𠮷'
+var text3 = '𠮷'
 
-console.log(text.length) // 2
-console.log(/^.$/.test(text)) // false
-console.log(/^.$/u.test(text)) // true
+console.log(text3.length) // 2
+console.log(/^.$/.test(text3)) // false
+console.log(/^.$/u.test(text3)) // true
 
 // COUNTING CODE POINTS
 // ********************
@@ -208,13 +209,13 @@ console.log('abc'.repeat(4)) // => 'abcabcabcabc'
 //  specified by the regular expression’s lastIndex property
 //  If there is no match at that location, then the regular expression stops matching
 
-let text = 'hello1 hello2 hello3'
+let text4 = 'hello1 hello2 hello3'
 let pattern = /hello\d\s?/ // No flag
-let result = pattern.exec(text)
+let result = pattern.exec(text4)
 let globalPattern = /hello\d\s?/g // With g flag
-let globalResult = globalPattern.exec(text)
-let stickyPattern = /hello\d\s?/y  // With y flag
-let stickyResult = stickyPattern.exec(text)
+let globalResult = globalPattern.exec(text4)
+let stickyPattern = /hello\d\s?/y // With y flag
+let stickyResult = stickyPattern.exec(text4)
 
 console.log(result[0]) // 'hello1 '
 console.log(globalResult[0]) // 'hello1 '
@@ -249,8 +250,8 @@ console.log(stickyResult[0]) // Error! stickyResult is null
 // This property is read-only based on the presence of the flag and cannot be
 // changed in code
 
-let pattern = /hello\d/y
-console.log(pattern.sticky) // true
+let pattern2 = /hello\d/y
+console.log(pattern2.sticky) // true
 
 // Detecting support for y flag
 // This returns false if it’s unable to create a regular expression with the y flag
@@ -322,7 +323,7 @@ console.log(message2) // 'Multiline string'
 var message3 = 'Multiline \n\
 string'
 console.log(message3) // 'Multiline
-                      //  string'
+//  string'
 
 // Another solution was to use concatenation
 // Or using the `.join` method of an array of strings
@@ -343,8 +344,8 @@ let message5 = 'Multiline \n' +
 let message6 = `Multiline
 string`
 
-console.log(message)  // "Multiline
-                      //  string"
+console.log(message) // "Multiline
+//  string"
 console.log(message.length) // 16
 
 // All whitespaces is considered part of the string
@@ -370,12 +371,12 @@ let html2 = `\
 //  All substitutions are JavaScript expressions
 
 let name = 'Nicholas'
-console.log(`Hello, ${name}.`)  // "Hello, Nicholas."
+console.log(`Hello, ${name}.`) // "Hello, Nicholas."
 
 let count = 10
 let price = 0.25
 let message15 = `${count} items cost $${(count * price).toFixed(2)}.`
-console.log(message15)  // "10 items cost $2.50."
+console.log(message15) // "10 items cost $2.50."
 
 // It is also possible to nest template literals
 
@@ -396,14 +397,14 @@ let hello = tagfunc`Hello world`
 //  Each subsequent argument is the interpreted value of each substitution
 
 function tagfunc (literals, ...substitutions) {
-    // return a string
+  // return a string
 }
 
 // Example of Using Tags
 
-let count = 10
-let price = 0.25
-let message = passThru`${count} items cost $${(count * price).toFixed(2)}.`
+let count1 = 10
+let price1 = 0.25
+let message1 = passThru`${count1} items cost $${(count1 * price1).toFixed(2)}.`
 
 function passThru (literalsArr, ...substitutions) {
   console.log(literalsArr[0]) // => "" // Before the first substitution
@@ -419,9 +420,9 @@ function passThru (literalsArr, ...substitutions) {
 //  substitutions.length === literals.length - 1 is always true
 
 // NOTE:
-//  The values contained in substitutions are not necessarily strings. 
-//  If an expression evaluates to a number, as in the previous example, 
-//  then the numeric value is passed in. 
+//  The values contained in substitutions are not necessarily strings.
+//  If an expression evaluates to a number, as in the previous example,
+//  then the numeric value is passed in.
 //  Determining how such values should output in the result is part of the tag’s job.
 
 // Template tags also have access to raw string information

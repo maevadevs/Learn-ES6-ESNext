@@ -131,8 +131,8 @@ USER.fname = 'Greg' // => This works: Change object props, not object binding!
 //  A variable declared with either 'let' or 'const' cannot be accessed until
 //  after the declaration. Attempting to do so results in a reference error.
 //  It might appear at first that `let` and `const` are not hoisted
-//  However, `let` and `const` are actually hoisted (like `var`, `class` and `function`), 
-//  but there is a period between entering scope and being declared where they cannot be 
+//  However, `let` and `const` are actually hoisted (like `var`, `class` and `function`),
+//  but there is a period between entering scope and being declared where they cannot be
 //  accessed: This is the Temporal Dead Zone
 //  The TDZ ends when the variable is declared, rather than assigned
 
@@ -151,11 +151,11 @@ if (condition) {
 
 // HOW THE TDZ WORKS
 // *****************
-//  The term is not official but often used to describe why `let` and `const` 
+//  The term is not official but often used to describe why `let` and `const`
 //  declarations are not accessible before their declaration.
 //
-//  When a JS engine looks through an upcoming block and finds a variable declaration, 
-//  it either hoists the declaration to the top of the function or global scope (var) 
+//  When a JS engine looks through an upcoming block and finds a variable declaration,
+//  it either hoists the declaration to the top of the function or global scope (var)
 //  or places the declaration in the TDZ (`let` and `const`).
 //  Any attempt to access a variable in the TDZ results in a runtime error.
 //  That variable is only removed from the TDZ, and therefore safe to use,
@@ -236,14 +236,14 @@ funcs.forEach(function (func) {
 //  value of the variable with the same name from the previous iteration.
 //  Omit the IIFE altogether.
 
-let funcs = []
+let funcs2 = []
 
 for (let i = 0; i < 10; i++) {
-  funcs.push(function () {
+  funcs2.push(function () {
     console.log(i)
   })
 }
-funcs.forEach(function (func) {
+funcs2.forEach(function (func) {
   func() // => outputs 0, then 1, then 2, up to 9
 })
 
@@ -255,18 +255,18 @@ funcs.forEach(function (func) {
 //  Early implementations of `let` did not have this behavior, as it was added
 //  later on in the process.
 
-let funcs = []
+let funcs3 = []
 let object = {
   a: true,
   b: true,
   c: true
 }
 for (let key in object) {
-  funcs.push(function () {
+  funcs3.push(function () {
     console.log(key)
   })
 }
-funcs.forEach(function (func) {
+funcs3.forEach(function (func) {
   func() // => outputs 'a', then 'b', then 'c'
 })
 
@@ -278,25 +278,25 @@ funcs.forEach(function (func) {
 //       You can only use `const` to declare a variable in the loop initializer if
 //       you are not modifying that variable
 
-let funcs = []
+let funcs4 = []
 for (const i = 0; i < 10; i++) { // => throws an error at i++
-  funcs.push(function () {
+  funcs4.push(function () {
     console.log(i)
   })
 }
 //  for-in, for-of: 'const' behaves the same as a 'let'
-let funcs = []
-let object = {
-    a: true,
-    b: true,
-    c: true
-  }
-for (const key in object) { // => doesn't cause an error
-  funcs.push(function () {
-    console.log(key) // => No modification so there is no error 
+let funcs5 = []
+let object1 = {
+  a: true,
+  b: true,
+  c: true
+}
+for (const key in object1) { // => doesn't cause an error
+  funcs5.push(function () {
+    console.log(key) // => No modification so there is no error
   })
 }
-funcs.forEach(function (func) {
+funcs5.forEach(function (func) {
   func() // => outputs 'a', then 'b', then 'c'
 })
 
@@ -317,7 +317,7 @@ funcs.forEach(function (func) {
 // console.log(window.ncz) // 'Hi!'
 
 // It is safer to always use `let` and `const` instead of `var`
-//  A new binding is created in the global scope but no property 
+//  A new binding is created in the global scope but no property
 //  is added to the global object
 //  We cannot overwrite a global variable using `let` or `const`
 
