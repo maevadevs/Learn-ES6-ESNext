@@ -81,3 +81,6 @@ Overview and learning of the changes in the ES6 standards that are different fro
 - Overview
 - Property Initializer Syntax
 - Method Syntax
+- Computed Property Names
+- New Object Methods
+  - `Object.is()`
