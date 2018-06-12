@@ -192,8 +192,8 @@ let person5 = {
 }
 console.log(person.name) // => "Greg"
 
-// OWN PROPERTY ENUMERATION ORDER
-// ******************************
+// OWN PROPERTIES ENUMERATION ORDER
+// ********************************
 //  ES5 didn’t define the enumeration order of object properties
 //  ES6 strictly defines the order in which own properties must
 //  be returned when they are enumerated
@@ -227,3 +227,175 @@ console.log(Object.getOwnPropertyNames(obj).join(',')) // => "0,1,2,a,c,b,d"
 
 // MORE POWERFUL PROTOTYPE
 // ***********************
+//  Prototypes are the foundation of inheritance in JS
+//  ES6 introduced improvements on prototypes
+
+// CHANGING AN OBJECT'S PROTOTYPE
+// ******************************
+//  Normally, the prototype of an object is specified when the object is created
+//  In ES5, an object’s prototype remains unchanged after instantiation
+//  Querying prototype was possible with `Object.getPrototypeOf()`
+//  But there was no standard way to change an object’s prototype after instantiation
+//  In ES6, we can change an object's prototype with `Object.setPrototypeOf()`
+//  It accepts two arguments:
+//    - the object whose prototype should change
+//    - the object that should become the first argument’s prototype
+
+let person6 = {
+  getGreeting () {
+    return 'Hello'
+  }
+}
+
+let dog = {
+  getGreeting () {
+    return 'Woof'
+  }
+}
+
+// prototype is `person`
+let friend = Object.create(person)
+console.log(friend.getGreeting()) // => "Hello"
+console.log(Object.getPrototypeOf(friend) === person) // => true
+
+// set prototype of friend to `dog`
+Object.setPrototypeOf(friend, dog)
+console.log(friend.getGreeting()) // => "Woof"
+console.log(Object.getPrototypeOf(friend) === dog) // => true
+
+// EASY PROTOTYPE ACCESS WITH `super` REFERENCES
+// *********************************************
+//  ES6 introduces `super` references
+//  Make accessing functionality on an object’s prototype easier
+
+let person7 = {
+  getGreeting () {
+    return 'Hello'
+  }
+}
+
+let dog2 = {
+  getGreeting () {
+    return 'Woof'
+  }
+}
+
+let friend1 = {
+  getGreeting () {
+    return Object.getPrototypeOf(this).getGreeting.call(this) + ', hi!'
+  }
+}
+
+// set prototype to `person`
+Object.setPrototypeOf(friend1, person7)
+console.log(friend1.getGreeting()) // => "Hello, hi!"
+console.log(Object.getPrototypeOf(friend1) === person7) // => true
+
+// set prototype to dog
+Object.setPrototypeOf(friend1, dog2)
+console.log(friend1.getGreeting()) // "Woof, hi!"
+console.log(Object.getPrototypeOf(friend1) === dog2) // true
+
+// This code could be re-written in the following using `super`
+let friend2 = {
+  getGreeting () {
+    // in the previous example, this is the same as:
+    // Object.getPrototypeOf(this).getGreeting.call(this)
+    // Using `super` to access reference to the prototype of this
+    return super.getGreeting() + ', hi!'
+  }
+}
+// set prototype to dog: super = dog
+Object.setPrototypeOf(friend2, dog2)
+console.log(friend2.getGreeting()) // "Woof, hi!"
+console.log(Object.getPrototypeOf(friend2) === dog2) // true
+
+// You can call any method on an object’s prototype by using a `super` reference
+// as long as it’s inside a concise method
+// Attempting to use super outside of concise methods syntax results in a syntax error
+
+let friendX = {
+  getGreeting: function () {
+    return super.getGreeting() + ', hi!' // => syntax error
+    // getGreeting() is not in a concise method syntax but using named property
+    // `super` is invalid in this context
+  }
+}
+
+// NOTE:
+//  Using `Object.getPrototypeOf()` stops working in multiple inheritance chain
+//  Using `super` still works
+
+let personX = {
+  getGreeting () {
+    return 'Hello'
+  }
+}
+// prototype of friend is person
+let friendY = {
+  getGreeting () {
+    return super.getGreeting() + ', hi!'
+  }
+}
+Object.setPrototypeOf(friendY, personX)
+// prototype of relative is friend
+let relative = Object.create(friendY)
+
+console.log(personX.getGreeting()) // "Hello"
+console.log(friendY.getGreeting()) // "Hello, hi!"
+console.log(relative.getGreeting()) // "Hello, hi!"
+
+// FORMAL METHOD DEFINITION
+// ************************
+//  In ES5, Methods were just object properties that contained functions instead of data
+//  In ES6:
+//    A method is a function that has an internal [[HomeObject]] property containing the
+//    object to which the method belongs
+
+let pers = {
+  // Formal method
+  getGreeting () {
+    return 'Hello'
+  }
+}
+// Not a method
+function shareGreeting () {
+  return 'Hi!'
+}
+
+// The [[HomeObject]] for `getGreeting()` is `pers`
+// The `shareGreeting()` function has no [[HomeObject]]
+// It becomes very important when using `super` references
+//  Any reference to `super` uses the [[HomeObject]] to determine what to do
+//  - Call `Object.getPrototypeOf()` on the [[HomeObject]] to retrieve a reference to the prototype
+//  - The prototype is searched for a function with the same name
+//  - The `this` binding is set and the method is called
+
+let pers1 = {
+  getGreeting () {
+    return 'Hello'
+  }
+}
+// prototype is person
+let friend13 = {
+  getGreeting () {
+    return super.getGreeting() + ', hi!'
+  }
+}
+Object.setPrototypeOf(friend13, pers1)
+
+console.log(friend13.getGreeting()) // => "Hello, hi!"
+
+// super.getGreeting() is equivalent to pers1.getGreeting.call(this)
+
+// SUMMARY
+// *******
+//  - Several changes to object literals
+//  - Computed property name
+//  - Shorthand methods
+//  - Loose strict check for duplicate property names
+//  - `Object.assign()` method
+//  - `Object.is()` method
+//  - Enumeration order for own properties
+//  - `Object.setPrototypeOf()` method
+//  - `super` keyword

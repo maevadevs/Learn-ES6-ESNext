@@ -80,7 +80,14 @@ Overview and learning of the changes in the ES6 standards that are different fro
 
 - Overview
 - Property Initializer Syntax
-- Method Syntax
+- Concise Method Syntax
 - Computed Property Names
 - New Object Methods
   - `Object.is()`
+  - `Object.assign()`
+- Duplicate Object Literal Properties
+- Own Properties Enumeration Order
+- Changing An Object's Prototype: `Object.setPrototypeOf()`
+- `super` References
+- Formal Method Definition
+- Summary
