@@ -299,8 +299,7 @@ console.log(re.flags) // => "gi"
 // *****************
 //  Provide syntax for creating domain-specific languages (DSLs) for working with
 //  content in a safer way than the solutions available in ECMAScript 5 and earlier
-//  Answer to the following features that JavaScript lacked all the way through
-//  ECMAScript 5:
+//  Answer to the following features that JavaScript lacked all the way through ECMAScript 5:
 //    - Multiline strings
 //    - Basic string formatting
 //    - HTML escaping: Safer to insert into HTML
@@ -358,7 +357,7 @@ let html1 = `
   <h1>Title</h1>
 </div>`.trim()
 
-// Or we can also escaping first line to remove the leading whitespace
+// Or we can also escaping first line to remove the leading and trailing whitespace
 
 let html2 = `\
 <div>
