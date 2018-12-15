@@ -3,8 +3,12 @@
 **Aliases**: ECMAScript 6, ES6, ES2015, ES Harmony v1  
 **Commitee**: TC-39
 
-Overview and learning of the changes in the ES6 standards that are different from ES5.  
-<https://leanpub.com/understandinges6/read>
+This is an overview of the changes in the ES6/ES2015 standard.
+
+- [Book Site](https://leanpub.com/understandinges6/read)
+- [ESNext Compatibility Chart](https://kangax.github.io/compat-table/es6/)
+
+## Table of Contents
 
 1. Block Bindings: `block-bindings.js`
 1. Strings and Regular Expressions: `strings-and-regexp.js`
