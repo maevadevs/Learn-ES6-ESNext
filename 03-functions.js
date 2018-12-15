@@ -68,7 +68,7 @@ function add (first, second = getValue()) {
 
 // NOTE:
 //  Be careful when using function calls as default parameter values
-//  If you forget the parentheses, such as second = getValue instead of `second = getValue()`,
+//  If you forget the parentheses, such as `second = getValue` instead of `second = getValue()`,
 //  you are passing a reference to the function rather than the result of the function call
 
 // We could also use a previous parameter as the default for a later parameter
@@ -131,10 +131,10 @@ console.log(bookData.year) // 2015
 //  The named parameter becomes an Array containing the rest of the parameters passed
 //  to the function
 
-function pick2 (object, ...rest) {
+function pick2 (object, ...everythingElse) {
   let result = Object.create(null)
-  for (let i = 0, len = rest.length; i < len; i++) {
-    result[rest[i]] = object[rest[i]]
+  for (let i = 0, len = everythingElse.length; i < len; i++) {
+    result[everythingElse[i]] = object[everythingElse[i]]
   }
   return result
 }
@@ -155,7 +155,7 @@ function pick2 (object, ...rest) {
 
 // function pick (object, ...keys, last) { /* ... */ } // => Syntax Error: Can't have a named parameter after rest parameters
 // let object = {
-//   set name(...value) { /* do something */ } // => Syntax error: Can't use rest param in setter
+//   set name(...value) { /* ... */ } // => Syntax error: Can't use rest param in setter
 // }
 
 // REST PARAMETER VS `arguments`
@@ -172,7 +172,7 @@ function checkArgs (...rest) {
   console.log(rest[1], arguments[1])
 }
 checkArgs('a', 'b')
-// => 2
+// 2
 // 2
 // a a
 // b b
@@ -193,7 +193,7 @@ const pickFirst = new Function('...args', 'return args[0]')
 
 // SPREAD OPERATOR
 // ***************
-//  The `rest` parameters allow you to specify that multiple independent arguments should
+//  The `rest` parameter allows you to specify that multiple independent arguments should
 //  be combined into an array
 //  The spread operator allows you to specify an array that should be split and have its
 //  items passed in as separate arguments to a function
@@ -370,7 +370,7 @@ if (true) {
   let doSomething1 = function () { return true }
   doSomething1()
 }
-console.log(typeof doSomething1)
+console.log(typeof doSomething1) // => "undefined"
 
 // BLOCK-LEVEL FUNCTIONS IN NON-STRICT MODE
 // ****************************************
@@ -471,7 +471,7 @@ let PageHandler1 = {
   }
 }
 
-// The call to `this.doSomething()` is broken because this is a reference to
+// The call to `this.doSomething()` is broken because `this` is a reference to
 // the object that was the target of the event (in this case `document`),
 // instead of being bound to `PageHandler`
 // We could fix this by binding the value of this to `PageHandler` explicitly using the `bind()`
@@ -495,14 +495,14 @@ let PageHandler2 = {
 // an arrow function
 // Arrow functions have no `this` binding, so `this` is always passed-thru from the scope-chain
 //  - If the arrow function is contained within a non-arrow function, `this` will be the same
-//    as the containing function
+//    as the containing function's
 //  - Otherwise, `this` is equivalent to the value of `this` in the global scope
 
 let PageHandler3 = {
   id: '123456',
   init: function () {
     // this === PageHandler
-    document.addEventListener('click', (event) => {
+    document.addEventListener('click', event => {
       // this === PageHandler
       this.doSomething(event.type) // No error: Binding passed thru from scope
     }, false)
@@ -517,9 +517,9 @@ let PageHandler3 = {
 // the arrow function is defined, you cannot change the value of `this` using
 // `call()`, `apply()`, or `bind()`
 
-// CANNOR BE USED AS CONSTRUCTOR
+// CANNOT BE USED AS CONSTRUCTOR
 // *****************************
-//  Arrow functions are designed to be “throwaway” functions, and so cannot
+//  Arrow functions are designed to be “throw-away” functions, and so cannot
 //  be used to define new types: missing `prototype` property
 //  An arrow function has no [[Construct]] behavior
 //  If you try to use the `new` operator with an arrow function, you’ll get an error

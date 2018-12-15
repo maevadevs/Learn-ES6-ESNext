@@ -67,10 +67,16 @@ Overview and learning of the changes in the ES6 standards that are different fro
 
 - Overview
 - Default Parameters Value
-- Working with Unnamed Parameters: `rest` Parameter
-- Spread Operator
+  - Default Parameters and TDZ
+- Working with Unnamed Parameters
+  - `rest` Parameter
+  - `rest` vs `arguments`
+- Better `Function` constructor
+- `spread` Operator
 - The `name` Property
-- Dual Purpose of Functions: Factory vs Constructor, `new.target`
+- Dual Purpose of Functions
+  - Factory vs Constructor
+  - `new.target`
 - Block-Level Functions
 - Arrow Functions Expressions
 - Tail-Call Optimization
@@ -91,3 +97,5 @@ Overview and learning of the changes in the ES6 standards that are different fro
 - `super` References
 - Formal Method Definition
 - Summary
+
+## 5. Destructuring: `destructuring.js`
