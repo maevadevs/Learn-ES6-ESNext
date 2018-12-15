@@ -1,5 +1,7 @@
 # Standard ECMA-262, v2015+
 
+![JS Evolution](./img/js.png)
+
 **Aliases**: ECMAScript 6, ES6, ES2015, ES Harmony, ES7, ES2016, ES2017, ES2018, ESNext\
 **Commitee**: TC-39
 
