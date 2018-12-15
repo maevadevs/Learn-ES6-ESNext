@@ -1,9 +1,9 @@
-# Standard ECMA-262, v2015
+# Standard ECMA-262, v2015+
 
-**Aliases**: ECMAScript 6, ES6, ES2015, ES Harmony v1  
+**Aliases**: ECMAScript 6, ES6, ES2015, ES Harmony, ES7, ES2016, ES2017, ES2018, ESNext\
 **Commitee**: TC-39
 
-This is an overview of the changes in the ES6/ES2015 standard.
+This is an overview of the changes in the ES6/ES2015 and ESNext standard.
 
 - [Book Site](https://leanpub.com/understandinges6/read)
 - [ESNext Compatibility Chart](https://kangax.github.io/compat-table/es6/)
