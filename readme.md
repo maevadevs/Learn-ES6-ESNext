@@ -27,8 +27,8 @@ Overview and learning of the changes in the ES6 standards that are different fro
 ## 1. Block Bindings: `block-bindings.js`
 
 - `var`: Scope and Hoisting
-- `let`: ES6 Variables, Block-level Declaration
-- `const`: ES6 Constants, Block-level Declaration
+- `let`: ES2015 Variables, Block-level Declaration
+- `const`: ES2015 Constants, Block-level Declaration
 - No Redeclaration of Same Identifier In Same Scope
 - Hoisting and Temporal Dead Zone (TDZ)
 - Block-Binding in Loops

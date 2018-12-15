@@ -10,7 +10,7 @@
 //  Hoisting:
 //    Regardless of where it is declared, assume that it is always declared at
 //    the top of the function or the global scope
-//    The initialization remain in the same spot
+//    However, the initialization remain at the same spot
 
 function getValue (condition) {
   if (condition) {
@@ -26,9 +26,9 @@ function getValue (condition) {
 }
 
 // The previous getValue() function gets turned into the following because of Variable Hoisting
-// So this is the same as the previous function
+// So the following is the same as the previous function
 
-function getValue (condition) {
+function getValue2 (condition) {
   // Variable declaration of value is hoisted at the top of the function
   var value // = undefined
   if (condition) {
@@ -57,10 +57,9 @@ function getValue (condition) {
 //    Always place the declaration at the top of the block so that they are
 //    available throughout the entire block
 
-function getValue (condition) {
+function getValue3 (condition) {
   if (condition) {
     let value = 'blue' // 'value' is only defined within the if {} block
-    // ...
     return value
   } else {
     // 'value' does not exist in this scope
@@ -90,17 +89,17 @@ if (condition) {
 // *************
 //  Constants with block-level scope are declared with `const` keyword
 //  Their binding cannot be changed once set
-//  Every const variable must be initialized at declaration time
-//  There is hoisting with 'const', but no implicit initialization (not even to undefined)
+//  Every `const` variable must be initialized at declaration time
+//  There is hoisting with `const`, but no implicit initialization (not even to undefined)
 //  Attempting to access it before initialization will result in a ReferenceError (TDZ)
-//  No Redeclaration of identifier also applies to 'const'
+//  No Redeclaration of identifier also applies to `const`
 //  NOTE: It is the binding that is constant, not the value
 //        An object's properties can still be re-assigned even if the object is constant
 
 const greetings = 'Hello, world!'
 
-// const GREET // => Syntax error because it must be initialized at declaration
-// var greetings = 'Hi' // => Syntax error because the identifier is already a constant
+// const GREET // => SyntaxError because it must be initialized at declaration
+// var greetings = 'Hi' // => SyntaxError because the identifier is already a constant above
 
 function test () {
   if (condition) {
@@ -110,8 +109,8 @@ function test () {
   // maximum is undefined here
 }
 
-// const count = 5 // => Syntax error: 'count' has already been defined with `var` previously
-// const name = 'Max' // => Syntax error: 'name' has already been defined with `let` previously
+// const count = 5 // => SyntaxError: 'count' has already been defined with `var` previously
+// const name = 'Max' // => SyntaxError: 'name' has already been defined with `let` previously
 const NAME = 'Marc'
 // NAME = 'John' // => Error: Cannot reassign a constant
 
@@ -120,30 +119,30 @@ const NAME = 'Marc'
 //  Therefore, const declarations for objects do not prevent modification of those objects props
 
 const USER = {
-  fname: 'Nicholas',
-  lname: 'Johnas'
+  firstName: 'Nicholas',
+  lastName: 'Johnas'
 }
-USER.fname = 'Greg' // => This works: Change object props, not object binding!
-// USER = { fname: 'Greg' }  // => This is an error: Changing the object binding!
+USER.firstName = 'Greg' // => This works: Change object props, not object binding!
+// USER = { firstName: 'Greg' }  // => This is an error: Changing the object binding!
 
 // NOTE: TEMPORAL DEAD ZONE AND HOISTING
 // *************************************
-//  A variable declared with either 'let' or 'const' cannot be accessed until
-//  after the declaration. Attempting to do so results in a reference error.
+//  A variable declared with either `let` or `const` cannot be accessed until
+//  after the declaration. Attempting to do so results in a ReferenceError.
 //  It might appear at first that `let` and `const` are not hoisted
 //  However, `let` and `const` are actually hoisted (like `var`, `class` and `function`),
 //  but there is a period between entering scope and being declared where they cannot be
 //  accessed: This is the Temporal Dead Zone
 //  The TDZ ends when the variable is declared, rather than assigned
 
-// console.log(aLet) // => Within TDZ: throw ReferenceError
-let aLet // TDZ Ended
-console.log(aLet) // => undefined
-aLet = 10
-console.log(aLet) // => 10
+// console.log(someLet) // => Within TDZ: throw ReferenceError
+let someLet // let declared: TDZ Ended
+console.log(someLet) // => undefined
+someLet = 10 // let assigned
+console.log(someLet) // => 10
 
 if (condition) {
-  console.log(typeof value) // => ReferenceError: value was used before declaration.
+  console.log(typeof value) // => (TDZ) ReferenceError: value was used before declaration.
   let value // value is not declared until this point: Hoisting falls in TDZ.
   value = 'blue' // This line is never executed because the previous line throws an error.
   // This line is in the TDZ.
@@ -162,9 +161,9 @@ if (condition) {
 //  once execution flows to the variable declaration.
 
 // NOTE: TDZ is only limited within the block that contains `let` or `const`
-//  Here, 'value' is not in the TDZ when the typeof operation executes because it
-//  occurs outside of the block in which value is declared.
-//  That means there is no value binding, and typeof simply returns 'undefined'.
+//  Here, `value` is not in the TDZ when the `typeof` operation executes because it
+//  occurs outside of the block in which `value` is declared.
+//  That means there is no value binding, and typeof simply returns `undefined`.
 
 console.log(typeof value) // => 'undefined' because in the global scope
 if (condition) {
@@ -175,16 +174,13 @@ if (condition) {
 // BLOCK-BINDING IN LOOPS
 // **********************
 //  `let` is very useful within `for` loops
-//  The throw-away counter variables (i, j, k...) are meant to be only used inside the loop
+//  The throw-away counter variables (i, j, k...) are meant to be used only inside the loop
 //  Once exiting the loop, they should be undefined
-
-// In ES5, the throwaway loop variable is hoisted and accessible outside the loop, unless reset
+//  In ES5, the throwaway loop variable is hoisted and accessible outside the loop, unless reset
 
 console.log(i) // => undefined: i was hoisted out of the for loop
-for (var i = 0; i < 10; i++) {
-  console.log(i)
-}
-// i is still accessible here
+for (var i = 0; i < 10; i++) console.log(i)
+// i is still accessible here, outside of the loop body
 console.log(i) // => 10
 
 // Using ES6 `let` fixes this problem

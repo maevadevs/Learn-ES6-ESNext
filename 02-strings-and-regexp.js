@@ -258,7 +258,7 @@ console.log(pattern2.sticky) // true
 
 function hasRegExpY () {
   try {
-    var pattern = new RegExp('.', 'y')
+    let pattern = new RegExp('.', 'y')
     return true
   } catch (ex) {
     return false
@@ -276,7 +276,9 @@ let regDup = new RegExp(reg)
 // specifies the flags for the regular expression, your code won’t work
 
 let re1 = /ab/i
-let re2 = new RegExp(re1, 'g') // Throws an error in ES5: The second argument cannot be used when the first
+let re2 = new RegExp(re1, 'g') // Throws an error in ES5
+
+// The second argument cannot be used when the first
 // argument is a regular expression
 // In ES2015: The second argument is allowed and overrides any flags present
 // on the first argument
