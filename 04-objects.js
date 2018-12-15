@@ -14,7 +14,7 @@
 
 // PROPERTY INITIALIZER SYNTAX
 // ***************************
-//  Objects are collections of property:value pairs
+//  Objects are collections of `property: value` pairs
 //  We can eliminate the duplication that exists around property names and local variables
 //  by using the property initializer shorthand
 //  When an object property name is the same as the local variable name, you can simply
@@ -130,7 +130,7 @@ console.log(Object.is(5, '5')) // => false
 //  This allows the final object to gain new properties without inheritance
 
 function mixin (final, extras) {
-  Object.keys(extras).forEach((key) => {
+  Object.keys(extras).forEach(key => {
     final[key] = extras[key]
   })
   return final
@@ -317,8 +317,8 @@ console.log(Object.getPrototypeOf(friend2) === dog2) // true
 let friendX = {
   getGreeting: function () {
     return super.getGreeting() + ', hi!' // => syntax error
-    // getGreeting() is not in a concise method syntax but using named property
-    // `super` is invalid in this context
+    // getGreeting() is not in a concise method syntax
+    // using named property `super` is invalid in this context
   }
 }
 
