@@ -105,3 +105,16 @@ This is an overview of the changes in the ES6/ES2015 and ESNext standard.
 - Summary
 
 ## 5. Destructuring: `destructuring.js`
+
+- Overview and Usage
+- Object Destructuring
+  - Default Values
+  - Assigning to Different Local Variables
+  - Nested Object Destructuring
+- Array Destructuring
+  - Default Values
+  - Nested Array Destructuring
+  - Rest Items
+- Mixed Destructuring
+- Destructured Params
+- Summary
