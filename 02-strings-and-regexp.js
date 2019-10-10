@@ -1,24 +1,27 @@
+/* eslint-disable no-multi-str */
+/* eslint-disable no-use-before-define */
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
+
 // BETTER UNICODE SUPPORT
 // **********************
-//
 // In ES5:
-//    - UTF-16:
-//        All string properties and methods, like the `length` property and
-//        the `charAt()` method, were based on these 16-bit code units.
+//  - UTF-16:
+//    All string properties and methods, like the `length` property and
+//    the `charAt()` method, were based on these 16-bit code units.
+//  - Limitation of UTF-16:
+//    Not enough to cover every single character codes in the world.
+//    There are just too much code-points to cover.
+//    Basic Multilingual Plane (BMP): First 2^16 code-points, using a single
+//    16-bit code unit.
+//    Supplementary Plane: Everything beyond the BMP, using the surrogate pairs.
 //
-//    - Limitation of UTF-16:
-//        Not enough to cover every single character codes in the world.
-//        There are just too much code-points to cover.
-//        Basic Multilingual Plane (BMP): First 2^16 code-points, using a single
-//        16-bit code unit.
-//        Supplementary Plane: Everything beyond the BMP, using the surrogate pairs.
+//  - Any single character in a string can be either one code unit for BMP
+//    characters, giving a total of 16 bits, or two units for supplementary
+//    plane characters, giving a total of 32 bits.
 //
-//    - Any single character in a string can be either one code unit for BMP
-//      characters, giving a total of 16 bits, or two units for supplementary
-//      plane characters, giving a total of 32 bits.
-//
-//    - All string operations and methods work on 16-bit code-units: Unexpected
-//      results from strings that use surrogate pairs (2 x 16-bit).
+//  - All string operations and methods work on 16-bit code-units: Unexpected
+//    results from strings that use surrogate pairs (2 x 16-bit).
 
 let text = '𠮷' // This is using a surrogate pair
 console.log(text.length) // => 2 (2x 16-bit)
@@ -56,9 +59,7 @@ console.log(text2.codePointAt(2)) // 97
 // Calling the str.codePointAt() method on a character is the easiest way to
 // determine if that character is represented by one or two code points
 
-function is32Bit (char) {
-  return char.codePointAt(0) > 0xFFFF
-}
+const is32Bit = char => char.codePointAt(0) > 0xFFFF
 console.log(is32Bit('𠮷')) // true
 console.log(is32Bit('a')) // false
 
@@ -82,7 +83,7 @@ console.log(String.fromCodePoint(134071)) // '𠮷'
 //                      but can be used interchangeably in certain situations.
 //  Two strings representing fundamentally the same text can contain different
 //  code point sequences.
-//  The character “æ” and the two-character string “ae” may be used
+//  E.g. The character “æ” and the two-character string “ae” may be used
 //  interchangeably but are strictly not equivalent unless normalized in some
 //  way.
 //
@@ -197,6 +198,7 @@ console.log(msg.includes('o', 8)) // => false
 //  Returns a new string containing the original string repeated the specified number of times
 //  A convenience function above all else: especially useful when manipulating text
 //  Particularly useful in code formatting utilities that need to create indentation levels
+// This is simlar to Python's `str * 3`
 
 console.log('z'.repeat(3)) // => 'zzz'
 console.log('hello'.repeat(2)) // => 'hellohello'
@@ -267,7 +269,7 @@ function hasRegExpY () {
 
 // DUPLICATING REGEXP
 // ******************
-//  In ES5, it is possible to duplicate a regular expression
+// In ES5, it is possible to duplicate a regular expression
 
 let reg = /ab/i
 let regDup = new RegExp(reg)
@@ -308,15 +310,15 @@ console.log(re.flags) // => "gi"
 //  Using backticks instead of quotes
 //  Escape all other backticks
 
-let message = `Hello world!`
+let message = 'Hello world!'
 console.log(message) // 'Hello world!'
 console.log(typeof message) // 'string'
 console.log(message.length) // 12
 
 // MULTILINE STRINGS
 // *****************
-//  ES5 workaround was to escape the newline character
-//  But the behavior is defined as a bug and many developers recommend avoiding it
+// ES5 workaround was to escape the newline character
+// But the behavior is defined as a bug and many developers recommend avoiding it
 
 var message2 = 'Multiline \
 string'
@@ -338,9 +340,9 @@ let message5 = 'Multiline \n' +
     'string'
 
 // In ES2015, we simply use template literals
-//  Just include a newline where you want, and it shows up in the result
-//  NOTE: All whitespace inside the backticks is part of the string
-//  For better indentation, start at next line, then trim or escape first line
+// Just include a newline where you want, and it shows up in the result
+// NOTE: All whitespace inside the backticks is part of the string
+// For better indentation, start at next line, then trim or escape first line
 
 let message6 = `Multiline
 string`
@@ -366,10 +368,10 @@ let html2 = `\
 
 // EXPRESSION SUBSTITUTIONS
 // ************************
-//  Variables can be evaluated
-//  Attempting to use an undeclared variable in a template literal throws an
-//  error in both strict and non-strict modes
-//  All substitutions are JavaScript expressions
+// Variables can be evaluated
+// Attempting to use an undeclared variable in a template literal throws an
+// error in both strict and non-strict modes
+// All substitutions are JavaScript expressions
 
 let name = 'Nicholas'
 console.log(`Hello, ${name}.`) // "Hello, Nicholas."
@@ -387,15 +389,15 @@ console.log(message22) // "Hello, my name is Nicholas."
 
 // TAGGED TEMPLATE
 // ***************
-//  Template literals can also be tagged
-//  A tag is a function that is called with the processed template literal data
-//  The tag is specified at the beginning of the string
+// Template literals can also be tagged
+// A tag is a function that is called with the processed template literal data
+// The tag is specified at the beginning of the string
 
 let hello = tagfunc`Hello world`
 
 // Defining a Tag function
-//  The first argument is an array containing the literal strings as interpreted by JavaScript
-//  Each subsequent argument is the interpreted value of each substitution
+// The first argument is an array containing the literal strings as interpreted by JavaScript
+// Each subsequent argument is the interpreted value of each substitution
 
 function tagfunc (literals, ...substitutions) {
   // return a string

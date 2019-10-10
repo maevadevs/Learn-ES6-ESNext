@@ -1,3 +1,8 @@
+/* eslint-disable no-self-compare */
+/* eslint-disable use-isnan */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-compare-neg-zero */
+/* eslint-disable no-unused-vars */
 // OVERVIEW
 // ********
 //  ES6 heavily improves the utility of objects
@@ -21,10 +26,7 @@
 //  include the name without a colon and value
 
 function createPerson (name, age) {
-  return {
-    name,
-    age
-  }
+  return { name, age }
 }
 
 // The JavaScript engine looks into the surrounding scope for a variable of the same name
@@ -32,7 +34,7 @@ function createPerson (name, age) {
 // Assigning a property with the same name as a local variable is a very common pattern in JS
 // This helps to eliminate naming errors
 
-// CONSISE METHOD SYNTAX
+// CONCISE METHOD SYNTAX
 // *********************
 //  Improved syntax for assigning methods to object literals
 //  Eliminating the colon and the `function` keyword
@@ -40,7 +42,7 @@ function createPerson (name, age) {
 //  The `name` property of a method created using concise method shorthand is
 //  the name used before the parentheses
 
-let person = {
+const person = {
   name: 'Nicholas',
   sayName () {
     console.log(this.name)
@@ -55,14 +57,14 @@ let person = {
 //  (E.g. The property name might contain spaces)
 //  When using spaces, property names cannot be used with `dot-notation`
 
-let person1 = {}
-let lastName = 'last name'
+const person1 = {}
+const lastName = 'last name'
 person1['first name'] = 'Nicholas'
 person1[lastName] = 'Zakas'
 console.log(person1['first name']) // => "Nicholas"
 console.log(person1[lastName]) // => "Zakas"
 
-let person2 = {
+const person2 = {
   'first name': 'John',
   'last name': 'Smith'
 }
@@ -73,14 +75,14 @@ console.log(person2['last name']) // => "Smith"
 // They use the same square bracket notation
 // Contents are evaluated as a string
 
-let lName = 'last name'
-let suffix = ' name'
+const lName = 'last name'
+const suffix = ' name'
 
-let person3 = {
+const person3 = {
   'first name': 'Nicholas',
   [lName]: 'Zakas' // Computed property name
 }
-let person4 = {
+const person4 = {
   [`first ${suffix}`]: 'Nicholas', // Computed expression
   [`last ${suffix}`]: 'Zakas' // Computed expression
 }
@@ -145,12 +147,12 @@ function mixin (final, extras) {
 // the properties in the order in which the suppliers are specified
 // The second supplier might overwrite a value from the first supplier on the receiver
 
-let receiver = {}
-let supplier1 = {
+const receiver = {}
+const supplier1 = {
   type: 'js',
   name: 'file.js'
 }
-let supplier2 = {
+const supplier2 = {
   type: 'css'
 }
 Object.assign(receiver, supplier1, supplier2)
@@ -166,15 +168,15 @@ console.log(receiver.name) // => "file.js"
 //  when a supplier has accessor properties
 //  An accessor property on a supplier will become a data property on the receiver
 
-let receiver2 = {}
-let supplier = {
+const receiver2 = {}
+const supplier = {
   get name () {
     return 'file.js'
   }
 }
 
 Object.assign(receiver2, supplier)
-let descriptor = Object.getOwnPropertyDescriptor(receiver2, 'name')
+const descriptor = Object.getOwnPropertyDescriptor(receiver2, 'name')
 
 console.log(descriptor.value) // => "file.js"
 console.log(descriptor.get) // => undefined
@@ -186,9 +188,9 @@ console.log(descriptor.get) // => undefined
 //  Both strict and nonstrict mode code no longer check for duplicate properties
 //  The last property of the given name becomes the property’s actual value
 
-let person5 = {
-  name: 'Nicholas',
-  name: 'Greg' // no error in ES6 strict mode
+const person5 = {
+  name: 'Nicholas'
+  // name: 'Greg' // no error in ES6 strict mode
 }
 console.log(person.name) // => "Greg"
 
@@ -202,7 +204,7 @@ console.log(person.name) // => "Greg"
 //    2. All string keys in the order in which they were added to the object
 //    3. All symbol keys in the order in which they were added to the object
 
-let obj = {
+const obj = {
   a: 1,
   0: 1,
   c: 1,
@@ -241,20 +243,20 @@ console.log(Object.getOwnPropertyNames(obj).join(',')) // => "0,1,2,a,c,b,d"
 //    - the object whose prototype should change
 //    - the object that should become the first argument’s prototype
 
-let person6 = {
+const person6 = {
   getGreeting () {
     return 'Hello'
   }
 }
 
-let dog = {
+const dog = {
   getGreeting () {
     return 'Woof'
   }
 }
 
 // prototype is `person`
-let friend = Object.create(person)
+const friend = Object.create(person)
 console.log(friend.getGreeting()) // => "Hello"
 console.log(Object.getPrototypeOf(friend) === person) // => true
 
@@ -268,19 +270,19 @@ console.log(Object.getPrototypeOf(friend) === dog) // => true
 //  ES6 introduces `super` references
 //  Make accessing functionality on an object’s prototype easier
 
-let person7 = {
+const person7 = {
   getGreeting () {
     return 'Hello'
   }
 }
 
-let dog2 = {
+const dog2 = {
   getGreeting () {
     return 'Woof'
   }
 }
 
-let friend1 = {
+const friend1 = {
   getGreeting () {
     return Object.getPrototypeOf(this).getGreeting.call(this) + ', hi!'
   }
@@ -297,9 +299,9 @@ console.log(friend1.getGreeting()) // "Woof, hi!"
 console.log(Object.getPrototypeOf(friend1) === dog2) // true
 
 // This code could be re-written in the following using `super`
-let friend2 = {
+const friend2 = {
   getGreeting () {
-    // in the previous example, this is the same as:
+    // In the previous example, this is the same as:
     // Object.getPrototypeOf(this).getGreeting.call(this)
     // Using `super` to access reference to the prototype of this
     return super.getGreeting() + ', hi!'
@@ -314,9 +316,9 @@ console.log(Object.getPrototypeOf(friend2) === dog2) // true
 // as long as it’s inside a concise method
 // Attempting to use super outside of concise methods syntax results in a syntax error
 
-let friendX = {
+const friendX = {
   getGreeting: function () {
-    return super.getGreeting() + ', hi!' // => syntax error
+    // return super.getGreeting() + ', hi!' // => syntax error
     // getGreeting() is not in a concise method syntax
     // using named property `super` is invalid in this context
   }
@@ -326,20 +328,20 @@ let friendX = {
 //  Using `Object.getPrototypeOf()` stops working in multiple inheritance chain
 //  Using `super` still works
 
-let personX = {
+const personX = {
   getGreeting () {
     return 'Hello'
   }
 }
 // prototype of friend is person
-let friendY = {
+const friendY = {
   getGreeting () {
     return super.getGreeting() + ', hi!'
   }
 }
 Object.setPrototypeOf(friendY, personX)
 // prototype of relative is friend
-let relative = Object.create(friendY)
+const relative = Object.create(friendY)
 
 console.log(personX.getGreeting()) // "Hello"
 console.log(friendY.getGreeting()) // "Hello, hi!"
@@ -352,7 +354,7 @@ console.log(relative.getGreeting()) // "Hello, hi!"
 //    A method is a function that has an internal [[HomeObject]] property containing the
 //    object to which the method belongs
 
-let pers = {
+const pers = {
   // Formal method
   getGreeting () {
     return 'Hello'
@@ -371,13 +373,13 @@ function shareGreeting () {
 //  - The prototype is searched for a function with the same name
 //  - The `this` binding is set and the method is called
 
-let pers1 = {
+const pers1 = {
   getGreeting () {
     return 'Hello'
   }
 }
 // prototype is person
-let friend13 = {
+const friend13 = {
   getGreeting () {
     return super.getGreeting() + ', hi!'
   }

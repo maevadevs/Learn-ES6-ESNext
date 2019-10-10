@@ -7,14 +7,14 @@
 // USAGE
 // *****
 // To extracts the values of variables from an object and store that data in local variables with the same names
-// Avoidig to assign them all one by one
+// Avoiding to assign them all one by one
 // Also avoiding to dig through the entire structure just to find one piece of data
 // For this purpose, ES6 adds destructuring for both objects and arrays
 
 // OBJECT DESTRUCTURING
 // ********************
 
-let node = {
+const node = {
   type: 'Identifier',
   name: 'foo'
 }
@@ -62,19 +62,19 @@ console.log(someValue) // => "abc"
 // ASSIGNING TO DIFFERENT LOCAL VARIABLE
 // *************************************
 // ES6 has an extended syntax that allows you to assign to a local variable with a different name
-// The syntax looks like the object literal nonshorthand property initializer syntax
+// The syntax looks like the object literal non-shorthand property initializer syntax
 // This syntax is effectively the opposite of traditional object literal syntax,
 // where the name is on the left of the colon and the value is on the right
 // In this case, the name is on the right of the colon and the location of the value
 // to read is on the left
 
-let { type: localType, name: localName } = node
+const { type: localType, name: localName } = node
 console.log(localType) // => "Identifier"
 console.log(localName) // => "foo"
 
 // And we can still use defaults on top of that
 
-let { someValue: greeting = 'Hello World!' } = node
+const { someValue: greeting = 'Hello World!' } = node
 console.log(greeting) // => "Hello World!"
 
 // NESTED OBJECT DESTRUCTURING
@@ -83,7 +83,7 @@ console.log(greeting) // => "Hello World!"
 // Destructuring patterns can be nested to an arbitrary level of depth, with all capabilities
 // available at each level
 
-let node2 = {
+const node2 = {
   type: 'Identifier',
   name: 'foo',
   loc: {
@@ -97,7 +97,7 @@ let node2 = {
     }
   }
 }
-let { loc: { start: { line, column: localCol } } } = node2
+const { loc: { start: { line, column: localCol } } } = node2
 
 console.log(line) // => 1
 console.log(localCol) // => 1
@@ -105,14 +105,14 @@ console.log(localCol) // => 1
 // ARRAY DESTRUCTURING
 // *******************
 // Just uses array literal syntax instead of object literal syntax
-// Operates on positions within an array, rather than the named properties that are
+// Operates on positions within an array rather than the named properties that are
 // available in objects
 
-let colors = [ 'red', 'green', 'blue' ]
+const colors = ['red', 'green', 'blue']
 
-let [ color1, color2 ] = colors
-console.log(color1) // => "red"
-console.log(color2) // => "green"
+const [c1, c2] = colors
+console.log(c1) // => "red"
+console.log(c2) // => "green"
 
 // Here, the variable names can be anything
 // The values are chosen because of their position in the array
@@ -120,15 +120,14 @@ console.log(color2) // => "green"
 // You can also omit items in the destructuring pattern and only provide variable names
 // for the items you’re interested in
 
-let [,, b] = colors
+const [,, b] = colors
 console.log(b) // => "blue"
 
 // We can also use Array Destructuring in assignment
 // But there is no need to wrap in parenthesis as with object (No block confusion)
 
-let r, g
+const [r, g] = colors
 
-;[ r, g ] = colors
 console.log(r) // => "red"
 console.log(g) // => "green"
 
@@ -139,7 +138,8 @@ console.log(g) // => "green"
 let x = 100
 let y = 200
 
-;[ x, y ] = [ y, x ]
+;[x, y] = [y, x]
+
 console.log(x) // => 200
 console.log(y) // => 100
 
@@ -147,7 +147,8 @@ console.log(y) // => 100
 // The destructuring happens on the temporary array, which has the
 // values of y and x copied into its first and second positions
 
-// Note: an error is thrown when the right side of an array destructured assignment expression
+// NOTE:
+// An error is thrown when the right side of an array destructured assignment expression
 // evaluates to `null` or `undefined`
 
 // DEFAULT VALUES
@@ -156,8 +157,8 @@ console.log(y) // => 100
 // The default value is used when the property at the given position either doesn’t exist or has
 // the value `undefined`
 
-let colors2 = ['red']
-let [ firstColor, secondColor = 'green' ] = colors2
+const colors2 = ['red']
+const [firstColor, secondColor = 'green'] = colors2
 
 console.log(firstColor) // => "red"
 console.log(secondColor) // => "green"
@@ -169,8 +170,8 @@ console.log(secondColor) // => "green"
 // into a nested array
 // As with objects, you can nest arrays arbitrarily deep
 
-let colors3 = [ 'red', [ 'green', 'lightgreen' ], 'blue' ]
-let [ fColor, [ sColor ] ] = colors3
+const colors3 = ['red', ['green', 'lightgreen'], 'blue']
+const [fColor, [sColor]] = colors3
 
 console.log(fColor) // => "red"
 console.log(sColor) // => "green"
@@ -181,7 +182,7 @@ console.log(sColor) // => "green"
 // Rest items use the ... syntax to assign the remaining items in an array to a particular variable
 // Rest items are useful for extracting certain items from an array and keeping the rest available
 
-let [ fCol, ...restColors ] = colors
+const [fCol, ...restColors] = colors
 
 console.log(fCol) // => "red"
 console.log(restColors.length) // => 2
@@ -200,7 +201,7 @@ console.log(clonedColors) // => "['red', 'green', 'blue']"
 // intended to function that way
 
 // cloning an array in ECMAScript 6
-let [ ...clonedColors2 ] = colors
+const [...clonedColors2] = colors
 console.log(clonedColors2) // => "['red', 'green', 'blue']"
 
 // NOTE:
@@ -211,7 +212,7 @@ console.log(clonedColors2) // => "['red', 'green', 'blue']"
 // *******************
 // Object and array destructuring can be used together to create more complex expressions
 
-let data = {
+const data = {
   type: 'Identifier',
   name: 'foo',
   loc: {
@@ -228,13 +229,13 @@ let data = {
 }
 
 // Destructuring
-let {
+const {
   loc: {
     start: {
       line: asLine = 0, column: asColumn = 0
     }
   },
-  range: [ startIndex = 0,,, endIndex ]
+  range: [startIndex = 0,,, endIndex]
 } = data
 
 console.log(asLine) // => 100

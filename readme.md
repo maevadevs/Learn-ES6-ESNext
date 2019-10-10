@@ -1,7 +1,5 @@
 # Standard ECMA-262, v2015+
 
-![JS Evolution](./img/js.png)
-
 **Aliases**: ECMAScript 6, ES6, ES2015, ES Harmony, ES7, ES2016, ES2017, ES2018, ESNext\
 **Commitee**: TC-39
 
@@ -17,7 +15,7 @@ This is an overview of the changes in the ES6/ES2015 and ESNext standard.
 1. Functions: `functions.js`
 1. Objects: `objects.js`
 1. Objects and Arrays Destructuring: `destructuring.js`
-1. Symbols Type and Symbols Properties: `symbols.js`
+1. Symbols and Symbols Properties: `symbols.js`
 1. Sets and Maps: `sets-maps.js`
 1. Iterators and Generators: `iterators-generators.js`
 1. Classes: `classes.js`
@@ -104,7 +102,7 @@ This is an overview of the changes in the ES6/ES2015 and ESNext standard.
 - Formal Method Definition
 - Summary
 
-## 5. Destructuring: `destructuring.js`
+## 5. Object and Array Destructuring: `destructuring.js`
 
 - Overview and Usage
 - Object Destructuring
@@ -117,4 +115,26 @@ This is an overview of the changes in the ES6/ES2015 and ESNext standard.
   - Rest Items
 - Mixed Destructuring
 - Destructured Params
+- Summary
+
+## 6. Symbols: `symbols.js`
+
+- Creating symbols
+- Identifying symbols
+- Using symbols
+- Sharing Symbols
+- Symbol Coercion
+- Retrieving Symbol Properties
+- Well-Known Symbols
+  - `Symbol.hasInstance`
+  - `Symbol.isConcatSpreadable`
+  - `Symbol.iterator`
+  - `Symbol.match`
+  - `Symbol.replace`
+  - `Symbol.search`
+  - `Symbol.species`
+  - `Symbol.split`
+  - `Symbol.toPrimitive`
+  - `Symbol.toStringTag`
+  - `Symbol.unscopables`
 - Summary

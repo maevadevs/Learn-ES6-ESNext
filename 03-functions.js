@@ -1,3 +1,8 @@
+/* eslint-disable no-useless-call */
+/* eslint-disable no-inner-declarations */
+/* eslint-disable no-new-func */
+/* eslint-disable no-unused-vars */
+
 // OVERVIEW
 // ********
 //  Prior to ES6, JavaScript functions hasn’t changed much since the language was created
@@ -76,7 +81,7 @@ function add (first, second = getValue()) {
 //  The ability to reference parameters from default parameter assignments works only for previous arguments
 //  so earlier arguments do not have access to later arguments
 
-function add (first, second = first) {
+function add1 (first, second = first) {
   return first + second
 }
 
@@ -103,19 +108,19 @@ function add (first, second = first) {
 //  cumbersome to work with
 
 function pick (object) {
-  let result = Object.create(null)
+  const result = Object.create(null)
   // Start at the second parameter
   for (let i = 1, len = arguments.length; i < len; i++) {
     result[arguments[i]] = object[arguments[i]]
   }
   return result
 }
-let book = {
+const book = {
   title: 'Understanding ECMAScript 6',
   author: 'Nicholas C. Zakas',
   year: 2015
 }
-let bookData = pick(book, 'author', 'year')
+const bookData = pick(book, 'author', 'year')
 
 console.log(bookData.author) // 'Nicholas C. Zakas'
 console.log(bookData.year) // 2015
@@ -132,7 +137,7 @@ console.log(bookData.year) // 2015
 //  to the function
 
 function pick2 (object, ...everythingElse) {
-  let result = Object.create(null)
+  const result = Object.create(null)
   for (let i = 0, len = everythingElse.length; i < len; i++) {
     result[everythingElse[i]] = object[everythingElse[i]]
   }
@@ -182,13 +187,13 @@ checkArgs('a', 'b')
 
 // BETTER FUNCTION CONSTRUCTOR
 // ***************************
-//  The `Function()` constructor is an infrequently used part of JavaScript that allows you to
-//  dynamically create a new function
-//  In ES6:
-//    `Function()` constructor is allowed default parameters and rest parameters
-//    For Rest parameters, just add the ... before the last parameter
+// The `Function()` constructor is an infrequently used part of JavaScript that allows you to
+// dynamically create a new function
+// In ES6:
+//  `Function()` constructor is allowed default parameters and rest parameters
+//  For Rest parameters, just add the ... before the last parameter
 
-const add1 = new Function('first', 'second = first', 'return first + second')
+const add2 = new Function('first', 'second = first', 'return first + second')
 const pickFirst = new Function('...args', 'return args[0]')
 
 // SPREAD OPERATOR
@@ -203,8 +208,8 @@ const pickFirst = new Function('...args', 'return args[0]')
 //  You’ll likely find it to be a suitable replacement for the `apply()` method in most
 //  circumstances
 
-let values = [25, 50, 75, 100, 1, 45, 67, 78, 43, 23, 0, 31]
-let extraValues = [1, 2, 3, 4, 500, 600, 700, 800]
+const values = [25, 50, 75, 100, 1, 45, 67, 78, 43, 23, 0, 31]
+const extraValues = [1, 2, 3, 4, 500, 600, 700, 800]
 console.log(Math.max(...values)) // => 100
 console.log(Math.max(...extraValues, ...values, 0)) // => 800
 
@@ -221,15 +226,15 @@ function namedFunc1 () {
 }
 const namedFunc2 = () => true
 
-namedFunc1.name // => "namedFunc1"
-namedFunc2.name // => "namedFunc2"
+console.log(namedFunc1.name) // => "namedFunc1"
+console.log(namedFunc2.name) // => "namedFunc2"
 
 // Special Cases of the `name` Property
-//  If the function expression itself has a name, that name takes priority over the variable
-//  to which the function was assigned
+// If the function expression itself has a name, that name takes priority over the variable
+// to which the function was assigned
 
 const aFunc = function anotherFunc () { return true }
-aFunc.name // => anotherFunc
+console.log(aFunc.name) // => anotherFunc
 
 // GetterSetter function: Includes the `get` or `set` parts as part of the name
 // Regular methods are just the name of the method
@@ -246,8 +251,8 @@ const person = {
   }
 }
 
-person.sayName.name // => sayName
-Object.getOwnPropertyDescriptor(person, 'name').get.name // => get name
+console.log(person.sayName.name) // => sayName
+console.log(Object.getOwnPropertyDescriptor(person, 'name').get.name) // => get name
 
 // Functions created using bind() will have their names prefixed with "bound"
 // Functions created using the Function() constructor have a name of "anonymous"
@@ -291,9 +296,9 @@ function Person (name) {
     throw new Error('You must use `new` with `Person`')
   }
 }
-let person1 = new Person('Nicholas')
+const person1 = new Person('Nicholas')
 let notAPerson = Person('Nicholas') // throws error
-let notAPerson2 = Person.call(person1, 'Michael') // works!
+const notAPerson2 = Person.call(person1, 'Michael') // works!
 
 // `new.target` META-PROPERTY
 // **************************
@@ -315,7 +320,7 @@ function Person2 (name) {
     throw new Error('You must use `new` with `Person`.')
   }
 }
-person = new Person2('Nicholas')
+const person2 = new Person2('Nicholas')
 notAPerson = Person2.call(person, 'Michael') // error!
 notAPerson = Person2('Nicholas') // throws error
 
@@ -337,19 +342,24 @@ function Person3 (name) {
 //  It is considered a best practice to avoid function declarations inside of blocks
 //  ES5 strict mode introduced an error when a function declaration was used inside of a block
 
-if (true) {
+const condition = true
+if (condition) {
   // In ES5 Strict-Mode, this throws a syntax error
   // In ES6, this is considered a block-level declaration
-  function doSomething1 () { return true }
+  function doSomething1 () {
+    return true
+  }
 }
 
 // In ES6, this is considered a block-level declaration
 // The function can only be accessed and called within the declaration block
 
 // "use strict"
-if (true) {
+if (condition) {
   console.log(typeof doSomething1) // ES5 Function Statement Hoisted: "function"
-  function doSomething1 () { return true }
+  function doSomething1 () {
+    return true
+  }
   // Call within the same block
   doSomething1() // => true
 }
@@ -365,9 +375,11 @@ console.log(typeof doSomething1) // => "undefined"
 //  until they are declared
 
 // "use strict"
-if (true) {
-  console.log(typeof doSomething1) // throws error: doSomething is currently in the TDZ
-  let doSomething1 = function () { return true }
+if (condition) {
+  // console.log(typeof doSomething1) // throws error: doSomething is currently in the TDZ
+  const doSomething1 = function () {
+    return true
+  }
   doSomething1()
 }
 console.log(typeof doSomething1) // => "undefined"
@@ -380,12 +392,14 @@ console.log(typeof doSomething1) // => "undefined"
 //  This behavior is to remove the incompatible browser behaviors that previously existed
 
 // ES6 behavior
-if (true) {
-  console.log(typeof doSomething2) // "function" because hoisted to global
-  function doSomething2 () { return true }
-  doSomething2()
+if (condition) {
+  console.log(typeof doSomething) // "function" because hoisted to global
+  function doSomething () {
+    return true
+  }
+  doSomething()
 }
-console.log(typeof doSomething2) // "function" because it exist in this context from hoisting
+console.log(typeof doSomething) // "function" because it exist in this context from hoisting
 
 // ARROW FUNCTION EXPRESSIONS
 // **************************
@@ -405,7 +419,7 @@ console.log(typeof doSomething2) // "function" because it exist in this context 
 
 const reflect1 = value => value
 const reflect2 = (value) => value
-const reflect3 = (value) => { return value }
+const reflect3 = value => { return value }
 const reflect4 = function (value) { return value }
 
 const sum1 = (num1, num2) => num1 + num2
@@ -435,21 +449,21 @@ const returnRegObject3 = function (id) {
 // ************************
 
 // Example of IIFE in ES5
-let person2 = (function (name) {
+const person3 = (function (name) {
   return {
     getName: function () {
       return name
     }
   }
-}('Nicholas'))
+})('Nicholas')
 
-console.log(person2.getName()) // => "Nicholas"
+console.log(person3.getName()) // => "Nicholas"
 
 // Example of IIFE in ES6
 // Since Arrow Function is an expression, parenthesis is required
-let person3 = (name => ({ getName: () => name }))('Nicholas')
+const person4 = (name => ({ getName: () => name }))('Nicholas')
 
-console.log(person3.getName()) // => "Nicholas"
+console.log(person4.getName()) // => "Nicholas"
 
 // NO `this` BINDING
 // *****************
@@ -459,7 +473,7 @@ console.log(person3.getName()) // => "Nicholas"
 //  on the context in which the function is called
 //  It is possible to mistakenly affect one object when you meant to affect another
 
-let PageHandler1 = {
+const PageHandler1 = {
   id: '123456',
   init: function () {
     document.addEventListener('click', function (event) {
@@ -476,7 +490,7 @@ let PageHandler1 = {
 // instead of being bound to `PageHandler`
 // We could fix this by binding the value of this to `PageHandler` explicitly using the `bind()`
 
-let PageHandler2 = {
+const PageHandler2 = {
   id: '123456',
   init: function () {
     document.addEventListener('click', function (event) {
@@ -495,15 +509,15 @@ let PageHandler2 = {
 // an arrow function
 // Arrow functions have no `this` binding, so `this` is always passed-thru from the scope-chain
 //  - If the arrow function is contained within a non-arrow function, `this` will be the same
-//    as the containing function's
+//    as the containing function's `this`
 //  - Otherwise, `this` is equivalent to the value of `this` in the global scope
 
-let PageHandler3 = {
+const PageHandler3 = {
   id: '123456',
   init: function () {
     // this === PageHandler
     document.addEventListener('click', event => {
-      // this === PageHandler
+      // Pass-thru: this === PageHandler
       this.doSomething(event.type) // No error: Binding passed thru from scope
     }, false)
   },
@@ -538,7 +552,7 @@ var result = values.sort(function (a, b) {
 
 // Example of Array Processing with ES6 Arrow Function
 
-let result1 = values.sort((a, b) => a - b)
+const result1 = values.sort((a, b) => a - b)
 
 // This is applicable to all other Array methods
 
@@ -550,7 +564,7 @@ let result1 = values.sort((a, b) => a - b)
 function createArrowFunctionReturningFirstArg () {
   return () => arguments[0] // Return a function
 }
-let arrowFunction = createArrowFunctionReturningFirstArg(5)
+const arrowFunction = createArrowFunctionReturningFirstArg(5)
 console.log(arrowFunction()) // => 5
 
 // Even though the arrow function is no longer in the scope of the function that created it,
@@ -566,6 +580,7 @@ console.log(comparator instanceof Function) // true
 
 // We can still use `call()`, `apply()`, and `bind()` on arrow functions,
 // although the `this` binding of the function will not be affected
+// Therefore, this is pretty much unnecessary
 
 const sum = (num1, num2) => num1 + num2
 
@@ -573,7 +588,7 @@ console.log(sum.call(null, 1, 2)) // 3: Unchanged
 console.log(sum.apply(null, [1, 2])) // 3: Unchanged
 // Using bind() method to create boundSum()
 // Attempting to bind `this` to `null`
-let boundSum = sum.bind(null, 1, 2)
+const boundSum = sum.bind(null, 1, 2)
 console.log(boundSum()) // 3: Unchanged
 
 // Arrow functions are appropriate to use anywhere you’re currently using an
@@ -590,6 +605,7 @@ function doSomethingAgain () {
   // ... A bunch of codes here...
   return doSomethingElse() // tail call
 }
+function doSomethingElse () {}
 
 // ES6 reduces the size of the call stack for certain tail calls in strict mode
 // Instead of creating a new stack frame for a tail call, the current stack frame
@@ -610,7 +626,7 @@ function doSomething3 () {
 
 function doSomething4 () {
   // not optimized - call isn't in tail position
-  let result = doSomethingElse()
+  const result = doSomethingElse()
   return result
 }
 
@@ -627,8 +643,8 @@ function doSomething5 () {
 // tail call optimization may be turned off
 
 function doSomething6 () {
-  let num = 1
-  let func = () => num
+  const num = 1
+  const func = () => num
   // not optimized - function is a closure
   return func()
 }
@@ -660,9 +676,8 @@ function factorialOptimized (n, p = 1) {
   if (n <= 1) {
     return 1 * p
   } else {
-    let result = n * p // Multiplication moved outside. Default value given to p
-    // optimized
-    return factorial(n - 1, result)
+    const result = n * p // Multiplication moved outside. Default value given to p
+    return factorial(n - 1, result) // optimized
   }
 }
 

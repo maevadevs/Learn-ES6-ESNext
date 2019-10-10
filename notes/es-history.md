@@ -13,6 +13,7 @@
 - ES2016 (v7)
 - ES2017
 - ES2018
+- ES2019
 
 *NOTE: ECMAScript is nothing more but Standardized JavaScript.*
 
@@ -30,7 +31,7 @@
 ## 1997 - ECMAScript 1
 
 - In 1996, Netscape submitted the language for standardization to ECMA International
-- Because of trademark issues with the term 'Java', it was renamed *ECMAScript*
+- Because of trademark issues with the term *Java*, it was renamed *ECMAScript*
 - *JavaScript* became the most popular implementation of *ECMAScript Standard*
 - Other implementations include: *JScript* (Microsoft) and *ActionScript* (Macromedia/Adobe)
 
@@ -46,7 +47,7 @@
 ## 2000 - ECMAScript 4 (Started and abandoned)
 
 - TC-39 released a large, massive draft for ECMAScript 4, based after ActionScript 3
-- It was massive in scope, way too massive:
+- It was massive in scope, way too massive
 - Updated features included
   - new syntax,
   - modules,
@@ -55,8 +56,9 @@
   - private object members,
   - optional type annotations, and more...
 - The consensus was that these features would be too much to handle in one go
-- Mozilla, Adobe, Macromedia continued work on ECMAScript 4
-- Yahoo, Google, and Microsoft agreed on ECMAScript 3.1 instead, with a slow incremental-integration
+- This caused a rift in the TC39 group
+  - Mozilla, Adobe, Macromedia continued work on ECMAScript 4
+  - Yahoo, Google, and Microsoft agreed on ECMAScript 3.1 instead, with a slow incremental-integration
 - ECMAScript 3.1 introduced very few syntax changes
 - While all of this was happening, the open source and developer communities set to work
 
@@ -68,8 +70,7 @@
 
 ## 2008 - Two Camps
 
-- Brendan Eich (creator of JS) announced that TC-39 would focus its efforts on 
-  standardizing ECMAScript 3.1 and a Harmony should be created between the two camps
+- Brendan Eich (creator of JS) announced that TC-39 would focus its efforts on standardizing ECMAScript 3.1 and a Harmony should be created between the two camps
 
 ## 2009 - ECMAScript 5
 
@@ -112,5 +113,9 @@
 - Yearly release
 
 ## 2018 - ECMAScript 2018
+
+- Yearly release
+
+## 2019 - ECMAScript 2019
 
 - Yearly release
